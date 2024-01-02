@@ -10,10 +10,12 @@ class OpType(Enum):
     BroadcastType = 0
     ElementwiseType = 1
     ReshapeType = 2
-    ReduceType = 3
-    ConcatType = 4
-    PlaceholderType = 5
-    GetItemType = 6
+    SliceType = 3
+    LayoutConversionType = 4
+    ReduceType = 5
+    ConcatType = 6
+    PlaceholderType = 7
+    GetItemType = 8
 
 
 class Op:
@@ -77,7 +79,7 @@ class Op:
             else:
                 buddy_node.add_argument(input_arg)
         for child in node_users:
-            buddy_node.add_children(child)
+            buddy_node.add_children(str(child))
         buddy_node._tensor_meta["shape"] = node_output_shape
         buddy_node._tensor_meta["dtype"] = node_output_dtype
         return buddy_node
@@ -105,7 +107,6 @@ class MatmulOp(Op):
     def __init__(self) -> None:
         super().__init__()
         self._op_type = OpType.ReduceType
-
 
 class GetItemOp(Op):
     def __init__(self) -> None:

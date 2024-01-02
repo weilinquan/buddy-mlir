@@ -1124,7 +1124,7 @@ def t_op(
 
 
 def matmul_op(
-    node: Op,
+    node: MatmulOp,
     symbol_table: Dict[Tuple[str, int], ir.Operation],
 ):
     """
@@ -1153,7 +1153,22 @@ def matmul_op(
     element = mlir_element_attr_get(dtype, 0.0)
     attr = ir.DenseElementsAttr.get_splat(tensor_type, element)
     matmul_result_buffer = arith.ConstantOp(tensor_type, attr).result
-    op = linalg.matmul(input1, input2, outs=[matmul_result_buffer])
+    if node._transpose_a and not node._transpose_b:
+        op = linalg.matmul_transpose_a(
+            input1, input2, outs=[matmul_result_buffer]
+        )
+    elif node._transpose_b and not node._transpose_a:
+        op = linalg.matmul_transpose_b(
+            input1, input2, outs=[matmul_result_buffer]
+        )
+    elif node._transpose_a and node._transpose_b:
+        op = linalg.matmul(input1, input2, outs=[matmul_result_buffer])
+        output_shape[0], output_shape[1] = output_shape[1], output_shape[0]
+        output = tensor.EmptyOp(output_shape, mlir_dtype)
+        perm = ir._denseI64ArrayAttr([1, 0], None)
+        op = linalg.transpose(input=op.result, outs=[output], permutation=perm)
+    else:
+        op = linalg.matmul(input1, input2, outs=[matmul_result_buffer])
     return op
 
 

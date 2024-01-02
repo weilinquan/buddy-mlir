@@ -26,6 +26,7 @@ from mlir import runtime as rt
 
 import os
 from typing import Any, List, Optional
+from types import FunctionType as function
 import ctypes
 from enum import Enum
 import functools
@@ -109,6 +110,7 @@ class Graph:
             params_flat: The real params of the torch fx graph.
         """
         self._body = []
+        self._node_table = {}
         self._inputs = inputs
         self._fake_params = fake_params
         self._outputs = None
@@ -121,8 +123,13 @@ class Graph:
         self._output_descriptor = None
         self.ee_ = None
 
+    def perform(self, pattern_list: List[function]):
+        for pattern in pattern_list:
+            pattern(self)
+
     def add_node(self, node: Op):
         self._body.append(node)
+        self._node_table[node.name] = node
 
     def lower_to_top_level_ir(self, do_params_pack=False):
         """

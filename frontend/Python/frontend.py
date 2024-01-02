@@ -30,7 +30,7 @@ import torch.utils._pytree as pytree
 from .ops.linalg import ops_registry as linalg_ops_registry
 from .graph import Graph, Tensordtype, TensorMeta
 from .frontend_ops_map import torch_ops_map
-
+from .graph.transform import fuse_transpose_matmul, expand_same_shape_eliminate
 
 class DynamoCompiler:
     """
@@ -130,7 +130,7 @@ class DynamoCompiler:
                         str(node.meta["tensor_meta"].dtype)
                     )
                     buddy_node = torch_ops_map[node.op].fx_create_node(
-                        node.name,
+                        str(node.name),
                         node.args,
                         node.users.keys(),
                         node.meta["tensor_meta"].shape,
@@ -138,7 +138,7 @@ class DynamoCompiler:
                     )
                 elif node.op == "output":
                     buddy_node = torch_ops_map[node.op].fx_create_node(
-                        node.name, node.args
+                        str(node.name), node.args
                     )
                 elif node.target is operator.getitem:
                     print(str(node.target))
@@ -146,7 +146,7 @@ class DynamoCompiler:
                         str(node.meta["tensor_meta"].dtype)
                     )
                     buddy_node = torch_ops_map[str(node.target)].fx_create_node(
-                        node.name,
+                        str(node.name),
                         node.args,
                         node.users.keys(),
                         node.meta["tensor_meta"].shape,
@@ -159,13 +159,15 @@ class DynamoCompiler:
                     buddy_node = torch_ops_map[
                         node.target.__name__
                     ].fx_create_node(
-                        node.name,
+                        str(node.name),
                         node.args,
                         node.users.keys(),
                         node.meta["tensor_meta"].shape,
                         node_dtype,
                     )
                 graph.add_node(buddy_node)
+            pattern_list = [fuse_transpose_matmul, expand_same_shape_eliminate]
+            # graph.perform(pattern_list)
             self._imported_graphs.append(graph)
             self._imported_params[graph] = params_flat
             return graph.dynamo_run()
