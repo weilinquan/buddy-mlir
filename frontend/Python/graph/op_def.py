@@ -106,6 +106,8 @@ class PlaceholderOp(Op):
 class MatmulOp(Op):
     def __init__(self) -> None:
         super().__init__()
+        self._transpose_a = False
+        self._transpose_b = False
         self._op_type = OpType.ReduceType
 
 class GetItemOp(Op):
