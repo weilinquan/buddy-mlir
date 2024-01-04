@@ -25,8 +25,8 @@ from mlir.execution_engine import *
 from mlir import runtime as rt
 
 import os
-from typing import Any, List, Optional
-from types import FunctionType as function
+from typing import Any, List, Optional, Dict
+from types import FunctionType
 import ctypes
 from enum import Enum
 import functools
@@ -109,21 +109,21 @@ class Graph:
             inputs: The torch fx graph's inputs.
             params_flat: The real params of the torch fx graph.
         """
-        self._body = []
-        self._node_table = {}
-        self._inputs = inputs
-        self._fake_params = fake_params
+        self._body: List[Op] = []
+        self._node_table: dict[str, Op] = {}
+        self._inputs: List[TensorMeta] = inputs
+        self._fake_params: List[TensorMeta] = fake_params
         self._outputs = None
-        self.device = "cpu"
-        self._imported_module = None
-        self._ops_registry = ops_registry
-        self._func_name = func_name
-        self._ctx = ir.Context()
-        self._output_memref = None
-        self._output_descriptor = None
+        self.device: str = "cpu"
+        self._imported_module: ir.Module = None
+        self._ops_registry: Dict[str, FunctionType] = ops_registry
+        self._func_name: str = func_name
+        self._ctx: ir.Context = ir.Context()
+        self._output_memref: List = None
+        self._output_descriptor  = None
         self.ee_ = None
 
-    def perform(self, pattern_list: List[function]):
+    def perform(self, pattern_list: List[FunctionType]):
         for pattern in pattern_list:
             pattern(self)
 

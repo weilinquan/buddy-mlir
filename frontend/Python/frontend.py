@@ -167,7 +167,7 @@ class DynamoCompiler:
                     )
                 graph.add_node(buddy_node)
             pattern_list = [fuse_transpose_matmul, expand_same_shape_eliminate]
-            graph.perform(pattern_list)
+            # graph.perform(pattern_list)
             self._imported_graphs.append(graph)
             self._imported_params[graph] = params_flat
             return graph.dynamo_run()
