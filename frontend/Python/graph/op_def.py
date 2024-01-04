@@ -1,4 +1,5 @@
 from enum import Enum
+from typing import List, Tuple
 import torch
 
 
@@ -300,3 +301,50 @@ class AddOp(Op):
     def __init__(self) -> None:
         super().__init__()
         self._op_type = OpType.BroadcastType
+
+
+class MaxPool2dWithIndicesOp(Op):
+    def __init__(self) -> None:
+        super().__init__()
+        self._op_type = OpType.ReduceType
+        self._return_val = []
+
+    def fx_create_node(
+        self,
+        node_name: str,
+        node_input: Tuple,
+        node_users: List,
+        node_output_shape: List[torch.Size],
+        node_output_dtype: List[torch.dtype],
+    ):
+        """
+        Create an max_pool2d_with_indices node.
+        Args:
+            node_name: The unique name of op node.
+            node_input: The op node's input.
+            node_users: The op node's successor nodes.
+            node_output_shape: The op node's output tensors shape.
+            node_output_dtype: The op node's output tensors dtype.
+        """
+        buddy_node = MaxPool2dWithIndicesOp()
+        buddy_node._name = node_name
+        for input_arg in node_input:
+            if isinstance(input_arg, torch.fx.Node):
+                buddy_node.add_argument(str(input_arg))
+                buddy_node.add_parent(str(input_arg))
+            else:
+                buddy_node.add_argument(input_arg)
+        for child in node_users:
+            buddy_node.add_children(child)
+        buddy_node._return_val.append(
+            {"shape": node_output_shape[0], "dtype": node_output_dtype[0]}
+        )
+        buddy_node._return_val.append(
+            {"shape": node_output_shape[1], "dtype": node_output_dtype[1]}
+        )
+        return buddy_node
+
+class MaxPool2dOp(Op):
+    def __init__(self) -> None:
+        super().__init__()
+        self._op_type = OpType.ReduceType
