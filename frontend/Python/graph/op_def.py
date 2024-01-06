@@ -432,3 +432,66 @@ class ReluOp(Op):
     def __init__(self) -> None:
         super().__init__()
         self._op_type = OpType.ElementwiseType
+
+class SigmoidOp(Op):
+    def __init__(self) -> None:
+        super().__init__()
+        self._op_type = OpType.ElementwiseType
+
+class IotaOp(Op):
+    def __init__(self) -> None:
+        super().__init__()
+        self._op_type = OpType.PlaceholderType
+        self._start = None
+        self._end = None
+        self._step = None
+
+    @classmethod
+    def fx_create_node(
+        cls,
+        node_name: str,
+        node_input: Tuple,
+        node_users: List[torch.fx.Node],
+        node_output_shape: Tuple,
+        node_output_dtype: Tensordtype,
+        node_kwargs: Optional[Dict] = None,
+    ):
+        """
+        Create an IotaOp node.
+        Args:
+            node_name: The unique name of op node.
+            node_input: The op node's input.
+            node_kwargs: The op node's kwargs.
+            node_users: The op node's successor nodes.
+            node_output_shape: The op node's output tensor shape.
+            node_output_dtype: The op node's output tensor dtype.
+        """
+        buddy_node = cls()
+        buddy_node._name = node_name
+        for input_arg in node_input:
+            if isinstance(input_arg, torch.fx.Node):
+                buddy_node.add_argument(str(input_arg))
+                buddy_node.add_parent(str(input_arg))
+            else:
+                buddy_node.add_argument(input_arg)
+                buddy_node._end = input_arg
+        
+        if node_kwargs is None:
+            node_kwargs = {} 
+        
+        buddy_node._keyword_arguments.update(node_kwargs)
+        for child in node_users:
+            buddy_node.add_children(str(child))
+        buddy_node._tensor_meta["shape"] = node_output_shape
+        buddy_node._tensor_meta["dtype"] = node_output_dtype
+        return buddy_node
+
+class ScalarTensorOp(Op):
+    def __init__(self) -> None:
+        super().__init__()
+        self._op_type = OpType.PlaceholderType
+
+class WhereOp(Op):
+    def __init__(self) -> None:
+        super().__init__()
+        self._op_type = OpType.ElementwiseType

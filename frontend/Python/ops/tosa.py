@@ -21,6 +21,7 @@
 import torch
 import array
 from typing import Dict, List, Tuple, Union
+import numpy
 
 import mlir.ir as ir
 from mlir.dialects import tensor, tosa
@@ -52,6 +53,9 @@ from ..graph import (
     MaxPool2dOp,
     Conv2dOp,
     ReluOp,
+    IotaOp,
+    SigmoidOp,
+    ScalarTensorOp
 )
 from .utils import *
 
@@ -1112,6 +1116,56 @@ def relu_op(node: ReluOp, symbol_table):
 
     return op
 
+def iota_op(node: IotaOp, symbol_table):
+    """
+    Import the tensor iota operation.
+    From Buddy IotaOp to MLIR TOSA `ConstOp` operation.
+    """
+    assert len(node.args) == 1
+    output_shape = list(node.tensor_meta["shape"])
+    dtype = node.tensor_meta["dtype"]
+    start = node._start
+    end = node._end
+    step = node._step
+    mlir_dtype = mlir_element_type_get(dtype)
+    tensor_type = ir.RankedTensorType.get(output_shape, mlir_dtype)
+    attr = ir.DenseElementsAttr.get(
+        numpy.arange(start, end, step),
+        type=tensor_type,
+    )
+    op = tosa.ConstOp(attr)
+
+    return op
+
+def sigmoid_op(node: SigmoidOp, symbol_table):
+    """
+    Import the tensor sigmoid operation.
+    From Buddy SigmoidOp to MLIR TOSA `SigmoidOp` operation.
+    """
+    assert len(node.args) == 1
+    input1 = symbol_table.get((str(node.args[0]), 0))
+    if input1 is None:
+        return
+    output_shape = list(node.tensor_meta["shape"])
+    dtype = node.tensor_meta["dtype"]
+    mlir_dtype = mlir_element_type_get(dtype)
+    tensor_type = ir.RankedTensorType.get(output_shape, mlir_dtype)
+    op = tosa.SigmoidOp(tensor_type, input1)
+
+    return op
+
+def scalar_tensor_op(node: ScalarTensorOp, symbol_table):
+    """
+    Import the tensor Scalar_Tensor operation.
+    From Buddy ScalarTensorOp to MLIR TOSA `ConstOp` operation.
+    """
+    assert len(node.args) == 1
+    dtype = node.tensor_meta["dtype"]
+    attr = mlir_element_attr_get(dtype, node.args[0])
+    op = tosa.ConstOp(attr)
+
+    return op
+
 ops_registry = {
     "AddOp": add_op,
     "MulOp": mul_op,
@@ -1139,5 +1193,7 @@ ops_registry = {
     "TransposeOp": transpose_op,
     "MaxPool2dOp": maxpool2d_op,
     "Conv2dOp": convolution2d_op,
-    "ReluOp": relu_op
+    "ReluOp": relu_op,
+    "IotaOp": iota_op,
+    "ScalarTensorOp": scalar_tensor_op
 }

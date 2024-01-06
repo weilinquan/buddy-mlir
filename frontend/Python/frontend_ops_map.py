@@ -66,5 +66,9 @@ torch_ops_map = {
     "getitem": GetItemOp,
     "convolution.default": Conv2dOp,
     "max_pool2d_with_indices.default": MaxPool2dWithIndicesOp,
-    "relu.default": ReluOp
+    "relu.default": ReluOp,
+    "iota.default": IotaOp,
+    "sigmoid.default": SigmoidOp,
+    "scalar_tensor.default": ScalarTensorOp,
+    "where.self": WhereOp
 }
