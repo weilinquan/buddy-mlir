@@ -39,12 +39,13 @@ def maxpool2d_simplify(graph: Graph):
                     getitem_node = graph._node_table[user]
             if getitem_num == 1 and len(node._children) == 1:
                 new_node = MaxPool2dOp.fx_create_node(
-                    node.name,
+                    getitem_node.name,
                     node.args,
                     getitem_node._children,
                     getitem_node.tensor_meta["shape"],
                     getitem_node.tensor_meta["dtype"],
                 )
+                new_node._layout = node._layout
                 del graph._node_table[node.name]
                 del graph._node_table[getitem_node.name]
                 graph._node_table[new_node.name] = new_node

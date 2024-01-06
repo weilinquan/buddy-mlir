@@ -36,27 +36,6 @@ import torch
 from .op_def import *
 
 
-class Tensordtype(Enum):
-    """
-    Enum class for declare tensor dtype.
-    """
-
-    Int32 = "int32"
-    Int64 = "int64"
-    Float32 = "float32"
-    Bool = "bool"
-
-
-class TensorMeta:
-    """
-    Store tensor's shape and dtype, overlook tensor's raw data.
-    """
-
-    def __init__(self, shape, dtype) -> None:
-        self.shape = shape
-        self.dtype = dtype
-
-
 def make_output_memref_descriptor(ranks, dtypes):
     """
     Make output memref descriptor for the given memref ranks and dtypes.

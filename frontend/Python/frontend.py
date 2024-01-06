@@ -32,6 +32,7 @@ from .ops.tosa import ops_registry as tosa_ops_registry
 from .ops.math import ops_registry as math_ops_registry
 from .graph import Graph, Tensordtype, TensorMeta
 from .frontend_ops_map import torch_ops_map
+from .graph.transform import maxpool2d_simplify
 
 
 class DynamoCompiler:
@@ -126,8 +127,6 @@ class DynamoCompiler:
                 self._func_name,
             )
             for node in _gm.graph.nodes:
-                print(node.__dict__)
-            for node in _gm.graph.nodes:
                 if node.op == "placeholder":
                     node_dtype = self.torch_dtype_to_str(
                         str(node.meta["tensor_meta"].dtype)
@@ -166,7 +165,6 @@ class DynamoCompiler:
                         node_shape = tuple([val_item.shape for val_item in val])
                     else:
                         raise RuntimeError("Zero returns is not supported.")
-                        
                     buddy_node = torch_ops_map[
                         node.target.__name__
                     ].fx_create_node(
@@ -178,6 +176,8 @@ class DynamoCompiler:
                         node_kwargs=node.kwargs
                     )
                 graph.add_node(buddy_node)
+            pattern_list = [maxpool2d_simplify]
+            graph.perform(pattern_list)
             self._imported_graphs.append(graph)
             self._imported_params[graph] = params_flat
             return graph.dynamo_run()

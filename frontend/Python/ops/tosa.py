@@ -1041,17 +1041,76 @@ def maxpool2d_op(node: MaxPool2dOp, symbol_table):
         pad = node.args[3]
     else:
         pad = [0 for _ in kernel]
+    dtype = node.tensor_meta["dtype"]
+    result_element_type = mlir_element_type_get(dtype)
+    if node._layout.find("NCHW") != -1:
+        perm_list = [0, 2, 3, 1]
+        perm_const_op = tosa.ConstOp(
+            ir.DenseElementsAttr.get(memoryview(array.array("i", perm_list)))
+        )
+        out_shape = list(ir.RankedTensorType(input1.type).shape)
+        perm_shape = []
+        perm_shape.append(out_shape[0])
+        perm_shape.append(out_shape[2])
+        perm_shape.append(out_shape[3])
+        perm_shape.append(out_shape[1])
+        permute_result_type = ir.RankedTensorType.get(
+            perm_shape, result_element_type
+        )
+        input1 = tosa.TransposeOp(
+            permute_result_type, input1, perm_const_op.results[0]
+        ).result
     out_shape = node.tensor_meta["shape"]
     pad = [0 for _ in range(len(out_shape) - len(pad))] + pad
     kernel_attr = ir._denseI64ArrayAttr(kernel, None)
     stride_attr = ir._denseI64ArrayAttr(stride, None)
     pad_attr = ir._denseI64ArrayAttr(pad, None)
-    dtype = node.tensor_meta["dtype"]
-    result_element_type = mlir_element_type_get(dtype)
+    if node._layout.find("NCHW") != -1:
+        perm_shape = []
+        perm_shape.append(out_shape[0])
+        perm_shape.append(out_shape[2])
+        perm_shape.append(out_shape[3])
+        perm_shape.append(out_shape[1])
+        out_shape = perm_shape
     output = ir.RankedTensorType.get(out_shape, result_element_type)
     op = tosa.MaxPool2dOp(output, input1, kernel_attr, stride_attr, pad_attr)
+    if node._layout.find("NCHW") != -1:
+        perm_list = [0, 3, 1, 2]
+        perm_const_op = tosa.ConstOp(
+            ir.DenseElementsAttr.get(memoryview(array.array("i", perm_list)))
+        )
+        perm_shape = []
+        perm_shape.append(out_shape[0])
+        perm_shape.append(out_shape[3])
+        perm_shape.append(out_shape[1])
+        perm_shape.append(out_shape[2])
+        permute_result_type = ir.RankedTensorType.get(
+            perm_shape, result_element_type
+        )
+        op = tosa.TransposeOp(
+            permute_result_type, op.result, perm_const_op.results[0]
+        )
     return op
 
+def relu_op(node: ReluOp, symbol_table):
+    """
+    Import the tensor relu operation.
+    From Buddy ReluOp to MLIR TOSA `maximum` operation.
+    """
+    assert len(node.args) == 1
+    input1 = symbol_table.get((str(node.args[0]), 0))
+    if input1 is None:
+        return
+    output_shape = list(node.tensor_meta["shape"])
+    dtype = node.tensor_meta["dtype"]
+    element = mlir_element_attr_get(dtype, 0)
+    tensor_type = ir.RankedTensorType.get(output_shape, element.type)
+    attr = ir.DenseElementsAttr.get_splat(tensor_type, element)
+    zero_op = tosa.ConstOp(attr)
+    result_element_type = mlir_element_type_get(dtype)
+    op = tosa.MaximumOp(tensor_type, input1, zero_op)
+
+    return op
 
 ops_registry = {
     "AddOp": add_op,
@@ -1080,4 +1139,5 @@ ops_registry = {
     "TransposeOp": transpose_op,
     "MaxPool2dOp": maxpool2d_op,
     "Conv2dOp": convolution2d_op,
+    "ReluOp": relu_op
 }

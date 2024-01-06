@@ -64,5 +64,7 @@ torch_ops_map = {
     "exp.default": ExpOp,
     "erf.default": ErfOp,
     "getitem": GetItemOp,
-    "convolution.default": Conv2dOp
+    "convolution.default": Conv2dOp,
+    "max_pool2d_with_indices.default": MaxPool2dWithIndicesOp,
+    "relu.default": ReluOp
 }
