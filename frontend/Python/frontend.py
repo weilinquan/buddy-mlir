@@ -127,8 +127,6 @@ class DynamoCompiler:
                 self._func_name,
             )
             for node in _gm.graph.nodes:
-                print(node.__dict__)
-            for node in _gm.graph.nodes:
                 if node.op == "placeholder":
                     node_dtype = self.torch_dtype_to_str(
                         str(node.meta["tensor_meta"].dtype)

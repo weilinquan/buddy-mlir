@@ -1836,8 +1836,8 @@ def where_op(
     """
     assert len(node.args) == 3
     input1 = symbol_table.get((str(node.args[0]), 0))
-    input2 = symbol_table.get((str(node.args[0]), 0))
-    input3 = symbol_table.get((str(node.args[0]), 0))
+    input2 = symbol_table.get((str(node.args[1]), 0))
+    input3 = symbol_table.get((str(node.args[2]), 0))
     if input1 is None or input2 is None or input3 is None:
         return
 
@@ -1855,6 +1855,11 @@ def where_op(
         [output],
         ir.ArrayAttr.get(
             [
+                ir.AffineMapAttr.get(
+                    generic_map.get_submap(
+                        [i for i in range(len(output_shape))]
+                    )
+                ),
                 ir.AffineMapAttr.get(
                     generic_map.get_submap(
                         [i for i in range(len(output_shape))]
@@ -1883,6 +1888,19 @@ def where_op(
     select_op = arith.SelectOp(block.arguments[0], input2, block.arguments[1])
     block.append(select_op)
     block.append(linalg.YieldOp([select_op.result]))
+
+    return op
+
+def scalar_tensor_op(node: ScalarTensorOp, symbol_table):
+    """
+    Import the tensor Scalar_Tensor operation.
+    From Buddy ScalarTensorOp to MLIR arith `ConstantOp` operation.
+    """
+    assert len(node.args) == 1
+    dtype = node.tensor_meta["dtype"]
+    mlir_dtype = mlir_element_type_get(dtype)
+    attr = mlir_element_attr_get(dtype, node.args[0])
+    op = arith.ConstantOp(dtype, attr)
 
     return op
 
@@ -1917,5 +1935,6 @@ ops_registry = {
     "CloneOp": clone_op,
     "SiluOp": silu_op,
     "AddOp": add_op,
-    "WhereOp": where_op
+    "WhereOp": where_op,
+    "ScalarTensorOp": scalar_tensor_op,
 }

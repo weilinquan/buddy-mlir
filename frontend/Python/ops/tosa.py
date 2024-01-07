@@ -523,6 +523,7 @@ def convert_element_type_op(node: ConvertElementTypeOp, symbol_table):
         torch.float32: ir.F32Type.get(),
         torch.float16: ir.F16Type.get(),
         torch.int32: ir.IntegerType.get_signless(32),
+        torch.bool: ir.IntegerType.get_signless(1),
     }
     input_tensor = symbol_table.get((str(node.args[0]), 0))
     to_cast_type = types_mapping[node.args[1]]
@@ -1154,18 +1155,6 @@ def sigmoid_op(node: SigmoidOp, symbol_table):
 
     return op
 
-def scalar_tensor_op(node: ScalarTensorOp, symbol_table):
-    """
-    Import the tensor Scalar_Tensor operation.
-    From Buddy ScalarTensorOp to MLIR TOSA `ConstOp` operation.
-    """
-    assert len(node.args) == 1
-    dtype = node.tensor_meta["dtype"]
-    attr = mlir_element_attr_get(dtype, node.args[0])
-    op = tosa.ConstOp(attr)
-
-    return op
-
 ops_registry = {
     "AddOp": add_op,
     "MulOp": mul_op,
@@ -1195,5 +1184,5 @@ ops_registry = {
     "Conv2dOp": convolution2d_op,
     "ReluOp": relu_op,
     "IotaOp": iota_op,
-    "ScalarTensorOp": scalar_tensor_op
+    "SigmoidOp": sigmoid_op
 }

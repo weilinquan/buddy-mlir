@@ -475,7 +475,8 @@ class IotaOp(Op):
             else:
                 buddy_node.add_argument(input_arg)
                 buddy_node._end = input_arg
-        
+        buddy_node._start = node_kwargs["start"]
+        buddy_node._step = node_kwargs["step"]
         if node_kwargs is None:
             node_kwargs = {} 
         
