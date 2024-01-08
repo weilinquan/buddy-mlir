@@ -8,21 +8,20 @@ from buddy.compiler.frontend import DynamoCompiler
 from buddy.compiler.ops import tosa
 
 
-class MaxPool(torch.nn.Module):
+class foo(torch.nn.Module):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
-        self.maxpool = torch.nn.MaxPool2d((4, 4))
 
     def forward(self, a):
-        return self.maxpool(a)
+        return torch.arange(a)
 
 
-model = MaxPool()
+model = foo()
 dynamo_compiler = DynamoCompiler(
     primary_registry=tosa.ops_registry,
     aot_autograd_decomposition=inductor_decomp,
 )
-in1 = torch.randn((1, 3, 640, 480), device="cpu")
+in1 = 40
 graphs = dynamo_compiler.importer(model, in1)
 assert len(graphs) == 1
 graph = graphs[0]
@@ -31,10 +30,6 @@ print(graph._imported_module)
 # CHECK: module {
 # CHECK-LABEL: func.func @forward
 # CHECK: %{{.*}} = "tosa.const"
-# CHECK: %{{.*}} = tosa.transpose
-# CHECK: %{{.*}} = tosa.max_pool2d
-# CHECK: %{{.*}} = "tosa.const"
-# CHECK: %{{.*}} = tosa.transpose
 # CHECK: return %{{.*}}
 # CHECK: }
 # CHECK: }
