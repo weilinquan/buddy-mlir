@@ -17,15 +17,16 @@ class Llama7BAttentionConfig(AttentionConfig):
             BatchMatmulOp(),
             MatmulOp(),
         ]
+        self.kv_op_idx = [1, 2]
 
 
 class Llama7BMLPConfig(MLPConfig):
     def __init__(self) -> None:
         super().__init__()
         self.hidden_size = [11008, 11008, 4096]
-        self.pattern = [MatmulOp(), MatmulOp(), MatmulOp()]
+        self.pattern = [MatmulOp(), MatmulOp()]
 
 
-class LlamaModelConfig(ModelConfig):
-    def __init__(self, pattern: List) -> None:
-        super().__init__(pattern)
+class Llama7BModelConfig(ModelConfig):
+    def __init__(self) -> None:
+        self.pattern = [Llama7BAttentionConfig(), Llama7BMLPConfig()] * 32

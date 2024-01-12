@@ -1,0 +1,512 @@
+0
+{'_name': 'mm', '_arguments': ['view_2', 'arg66_1'], '_children': ['view_3'], '_parent': ['view_2', 'arg66_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_1', '_arguments': ['view_4', 'arg67_1'], '_children': ['view_5'], '_parent': ['view_4', 'arg67_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_2', '_arguments': ['view_6', 'arg68_1'], '_children': ['view_7'], '_parent': ['view_6', 'arg68_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_3', '_arguments': ['view_18', 'arg69_1'], '_children': ['view_19'], '_parent': ['view_18', 'arg69_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+1
+{'_name': 'mm_4', '_arguments': ['view_20', 'arg70_1'], '_children': ['view_21'], '_parent': ['view_20', 'arg70_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+{'_name': 'mm_5', '_arguments': ['view_22', 'arg71_1'], '_children': ['view_23'], '_parent': ['view_22', 'arg71_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+2
+{'_name': 'mm_6', '_arguments': ['view_24', 'arg72_1'], '_children': ['view_25'], '_parent': ['view_24', 'arg72_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_7', '_arguments': ['view_26', 'arg73_1'], '_children': ['view_27'], '_parent': ['view_26', 'arg73_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_8', '_arguments': ['view_28', 'arg74_1'], '_children': ['view_29'], '_parent': ['view_28', 'arg74_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_10', '_arguments': ['view_42', 'arg76_1'], '_children': ['view_43'], '_parent': ['view_42', 'arg76_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+3
+{'_name': 'mm_11', '_arguments': ['view_44', 'arg77_1'], '_children': ['view_45'], '_parent': ['view_44', 'arg77_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+{'_name': 'mm_12', '_arguments': ['view_46', 'arg78_1'], '_children': ['view_47'], '_parent': ['view_46', 'arg78_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+4
+{'_name': 'mm_13', '_arguments': ['view_48', 'arg79_1'], '_children': ['view_49'], '_parent': ['view_48', 'arg79_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_14', '_arguments': ['view_50', 'arg80_1'], '_children': ['view_51'], '_parent': ['view_50', 'arg80_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_15', '_arguments': ['view_52', 'arg81_1'], '_children': ['view_53'], '_parent': ['view_52', 'arg81_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_17', '_arguments': ['view_66', 'arg83_1'], '_children': ['view_67'], '_parent': ['view_66', 'arg83_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+5
+{'_name': 'mm_18', '_arguments': ['view_68', 'arg84_1'], '_children': ['view_69'], '_parent': ['view_68', 'arg84_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+{'_name': 'mm_19', '_arguments': ['view_70', 'arg85_1'], '_children': ['view_71'], '_parent': ['view_70', 'arg85_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+6
+{'_name': 'mm_20', '_arguments': ['view_72', 'arg86_1'], '_children': ['view_73'], '_parent': ['view_72', 'arg86_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_21', '_arguments': ['view_74', 'arg87_1'], '_children': ['view_75'], '_parent': ['view_74', 'arg87_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_22', '_arguments': ['view_76', 'arg88_1'], '_children': ['view_77'], '_parent': ['view_76', 'arg88_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_24', '_arguments': ['view_90', 'arg90_1'], '_children': ['view_91'], '_parent': ['view_90', 'arg90_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+7
+{'_name': 'mm_25', '_arguments': ['view_92', 'arg91_1'], '_children': ['view_93'], '_parent': ['view_92', 'arg91_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+{'_name': 'mm_26', '_arguments': ['view_94', 'arg92_1'], '_children': ['view_95'], '_parent': ['view_94', 'arg92_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+8
+{'_name': 'mm_27', '_arguments': ['view_96', 'arg93_1'], '_children': ['view_97'], '_parent': ['view_96', 'arg93_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_28', '_arguments': ['view_98', 'arg94_1'], '_children': ['view_99'], '_parent': ['view_98', 'arg94_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_29', '_arguments': ['view_100', 'arg95_1'], '_children': ['view_101'], '_parent': ['view_100', 'arg95_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_31', '_arguments': ['view_114', 'arg97_1'], '_children': ['view_115'], '_parent': ['view_114', 'arg97_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+9
+{'_name': 'mm_32', '_arguments': ['view_116', 'arg98_1'], '_children': ['view_117'], '_parent': ['view_116', 'arg98_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+{'_name': 'mm_33', '_arguments': ['view_118', 'arg99_1'], '_children': ['view_119'], '_parent': ['view_118', 'arg99_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+10
+{'_name': 'mm_34', '_arguments': ['view_120', 'arg100_1'], '_children': ['view_121'], '_parent': ['view_120', 'arg100_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_35', '_arguments': ['view_122', 'arg101_1'], '_children': ['view_123'], '_parent': ['view_122', 'arg101_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_36', '_arguments': ['view_124', 'arg102_1'], '_children': ['view_125'], '_parent': ['view_124', 'arg102_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_38', '_arguments': ['view_138', 'arg104_1'], '_children': ['view_139'], '_parent': ['view_138', 'arg104_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+11
+{'_name': 'mm_39', '_arguments': ['view_140', 'arg105_1'], '_children': ['view_141'], '_parent': ['view_140', 'arg105_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+{'_name': 'mm_40', '_arguments': ['view_142', 'arg106_1'], '_children': ['view_143'], '_parent': ['view_142', 'arg106_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+12
+{'_name': 'mm_41', '_arguments': ['view_144', 'arg107_1'], '_children': ['view_145'], '_parent': ['view_144', 'arg107_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_42', '_arguments': ['view_146', 'arg108_1'], '_children': ['view_147'], '_parent': ['view_146', 'arg108_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_43', '_arguments': ['view_148', 'arg109_1'], '_children': ['view_149'], '_parent': ['view_148', 'arg109_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_45', '_arguments': ['view_162', 'arg111_1'], '_children': ['view_163'], '_parent': ['view_162', 'arg111_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+13
+{'_name': 'mm_46', '_arguments': ['view_164', 'arg112_1'], '_children': ['view_165'], '_parent': ['view_164', 'arg112_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+{'_name': 'mm_47', '_arguments': ['view_166', 'arg113_1'], '_children': ['view_167'], '_parent': ['view_166', 'arg113_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+14
+{'_name': 'mm_48', '_arguments': ['view_168', 'arg114_1'], '_children': ['view_169'], '_parent': ['view_168', 'arg114_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_49', '_arguments': ['view_170', 'arg115_1'], '_children': ['view_171'], '_parent': ['view_170', 'arg115_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_50', '_arguments': ['view_172', 'arg116_1'], '_children': ['view_173'], '_parent': ['view_172', 'arg116_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_52', '_arguments': ['view_186', 'arg118_1'], '_children': ['view_187'], '_parent': ['view_186', 'arg118_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+15
+{'_name': 'mm_53', '_arguments': ['view_188', 'arg119_1'], '_children': ['view_189'], '_parent': ['view_188', 'arg119_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+{'_name': 'mm_54', '_arguments': ['view_190', 'arg120_1'], '_children': ['view_191'], '_parent': ['view_190', 'arg120_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+16
+{'_name': 'mm_55', '_arguments': ['view_192', 'arg121_1'], '_children': ['view_193'], '_parent': ['view_192', 'arg121_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_56', '_arguments': ['view_194', 'arg122_1'], '_children': ['view_195'], '_parent': ['view_194', 'arg122_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_57', '_arguments': ['view_196', 'arg123_1'], '_children': ['view_197'], '_parent': ['view_196', 'arg123_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_59', '_arguments': ['view_210', 'arg125_1'], '_children': ['view_211'], '_parent': ['view_210', 'arg125_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+17
+{'_name': 'mm_60', '_arguments': ['view_212', 'arg126_1'], '_children': ['view_213'], '_parent': ['view_212', 'arg126_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+{'_name': 'mm_61', '_arguments': ['view_214', 'arg127_1'], '_children': ['view_215'], '_parent': ['view_214', 'arg127_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+18
+{'_name': 'mm_62', '_arguments': ['view_216', 'arg128_1'], '_children': ['view_217'], '_parent': ['view_216', 'arg128_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_63', '_arguments': ['view_218', 'arg129_1'], '_children': ['view_219'], '_parent': ['view_218', 'arg129_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_64', '_arguments': ['view_220', 'arg130_1'], '_children': ['view_221'], '_parent': ['view_220', 'arg130_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_66', '_arguments': ['view_234', 'arg132_1'], '_children': ['view_235'], '_parent': ['view_234', 'arg132_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+19
+{'_name': 'mm_67', '_arguments': ['view_236', 'arg133_1'], '_children': ['view_237'], '_parent': ['view_236', 'arg133_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+{'_name': 'mm_68', '_arguments': ['view_238', 'arg134_1'], '_children': ['view_239'], '_parent': ['view_238', 'arg134_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+20
+{'_name': 'mm_69', '_arguments': ['view_240', 'arg135_1'], '_children': ['view_241'], '_parent': ['view_240', 'arg135_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_70', '_arguments': ['view_242', 'arg136_1'], '_children': ['view_243'], '_parent': ['view_242', 'arg136_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_71', '_arguments': ['view_244', 'arg137_1'], '_children': ['view_245'], '_parent': ['view_244', 'arg137_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_73', '_arguments': ['view_258', 'arg139_1'], '_children': ['view_259'], '_parent': ['view_258', 'arg139_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+21
+{'_name': 'mm_74', '_arguments': ['view_260', 'arg140_1'], '_children': ['view_261'], '_parent': ['view_260', 'arg140_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+{'_name': 'mm_75', '_arguments': ['view_262', 'arg141_1'], '_children': ['view_263'], '_parent': ['view_262', 'arg141_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+22
+{'_name': 'mm_76', '_arguments': ['view_264', 'arg142_1'], '_children': ['view_265'], '_parent': ['view_264', 'arg142_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_77', '_arguments': ['view_266', 'arg143_1'], '_children': ['view_267'], '_parent': ['view_266', 'arg143_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_78', '_arguments': ['view_268', 'arg144_1'], '_children': ['view_269'], '_parent': ['view_268', 'arg144_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_80', '_arguments': ['view_282', 'arg146_1'], '_children': ['view_283'], '_parent': ['view_282', 'arg146_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+23
+{'_name': 'mm_81', '_arguments': ['view_284', 'arg147_1'], '_children': ['view_285'], '_parent': ['view_284', 'arg147_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+{'_name': 'mm_82', '_arguments': ['view_286', 'arg148_1'], '_children': ['view_287'], '_parent': ['view_286', 'arg148_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+24
+{'_name': 'mm_83', '_arguments': ['view_288', 'arg149_1'], '_children': ['view_289'], '_parent': ['view_288', 'arg149_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_84', '_arguments': ['view_290', 'arg150_1'], '_children': ['view_291'], '_parent': ['view_290', 'arg150_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_85', '_arguments': ['view_292', 'arg151_1'], '_children': ['view_293'], '_parent': ['view_292', 'arg151_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_87', '_arguments': ['view_306', 'arg153_1'], '_children': ['view_307'], '_parent': ['view_306', 'arg153_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+25
+{'_name': 'mm_88', '_arguments': ['view_308', 'arg154_1'], '_children': ['view_309'], '_parent': ['view_308', 'arg154_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+{'_name': 'mm_89', '_arguments': ['view_310', 'arg155_1'], '_children': ['view_311'], '_parent': ['view_310', 'arg155_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+26
+{'_name': 'mm_90', '_arguments': ['view_312', 'arg156_1'], '_children': ['view_313'], '_parent': ['view_312', 'arg156_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_91', '_arguments': ['view_314', 'arg157_1'], '_children': ['view_315'], '_parent': ['view_314', 'arg157_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_92', '_arguments': ['view_316', 'arg158_1'], '_children': ['view_317'], '_parent': ['view_316', 'arg158_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_94', '_arguments': ['view_330', 'arg160_1'], '_children': ['view_331'], '_parent': ['view_330', 'arg160_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+27
+{'_name': 'mm_95', '_arguments': ['view_332', 'arg161_1'], '_children': ['view_333'], '_parent': ['view_332', 'arg161_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+{'_name': 'mm_96', '_arguments': ['view_334', 'arg162_1'], '_children': ['view_335'], '_parent': ['view_334', 'arg162_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+28
+{'_name': 'mm_97', '_arguments': ['view_336', 'arg163_1'], '_children': ['view_337'], '_parent': ['view_336', 'arg163_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_98', '_arguments': ['view_338', 'arg164_1'], '_children': ['view_339'], '_parent': ['view_338', 'arg164_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_99', '_arguments': ['view_340', 'arg165_1'], '_children': ['view_341'], '_parent': ['view_340', 'arg165_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_101', '_arguments': ['view_354', 'arg167_1'], '_children': ['view_355'], '_parent': ['view_354', 'arg167_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+29
+{'_name': 'mm_102', '_arguments': ['view_356', 'arg168_1'], '_children': ['view_357'], '_parent': ['view_356', 'arg168_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+{'_name': 'mm_103', '_arguments': ['view_358', 'arg169_1'], '_children': ['view_359'], '_parent': ['view_358', 'arg169_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+30
+{'_name': 'mm_104', '_arguments': ['view_360', 'arg170_1'], '_children': ['view_361'], '_parent': ['view_360', 'arg170_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_105', '_arguments': ['view_362', 'arg171_1'], '_children': ['view_363'], '_parent': ['view_362', 'arg171_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_106', '_arguments': ['view_364', 'arg172_1'], '_children': ['view_365'], '_parent': ['view_364', 'arg172_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_108', '_arguments': ['view_378', 'arg174_1'], '_children': ['view_379'], '_parent': ['view_378', 'arg174_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+31
+{'_name': 'mm_109', '_arguments': ['view_380', 'arg175_1'], '_children': ['view_381'], '_parent': ['view_380', 'arg175_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+{'_name': 'mm_110', '_arguments': ['view_382', 'arg176_1'], '_children': ['view_383'], '_parent': ['view_382', 'arg176_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+32
+{'_name': 'mm_111', '_arguments': ['view_384', 'arg177_1'], '_children': ['view_385'], '_parent': ['view_384', 'arg177_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_112', '_arguments': ['view_386', 'arg178_1'], '_children': ['view_387'], '_parent': ['view_386', 'arg178_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_113', '_arguments': ['view_388', 'arg179_1'], '_children': ['view_389'], '_parent': ['view_388', 'arg179_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_115', '_arguments': ['view_402', 'arg181_1'], '_children': ['view_403'], '_parent': ['view_402', 'arg181_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+33
+{'_name': 'mm_116', '_arguments': ['view_404', 'arg182_1'], '_children': ['view_405'], '_parent': ['view_404', 'arg182_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+{'_name': 'mm_117', '_arguments': ['view_406', 'arg183_1'], '_children': ['view_407'], '_parent': ['view_406', 'arg183_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+34
+{'_name': 'mm_118', '_arguments': ['view_408', 'arg184_1'], '_children': ['view_409'], '_parent': ['view_408', 'arg184_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_119', '_arguments': ['view_410', 'arg185_1'], '_children': ['view_411'], '_parent': ['view_410', 'arg185_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_120', '_arguments': ['view_412', 'arg186_1'], '_children': ['view_413'], '_parent': ['view_412', 'arg186_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_122', '_arguments': ['view_426', 'arg188_1'], '_children': ['view_427'], '_parent': ['view_426', 'arg188_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+35
+{'_name': 'mm_123', '_arguments': ['view_428', 'arg189_1'], '_children': ['view_429'], '_parent': ['view_428', 'arg189_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+{'_name': 'mm_124', '_arguments': ['view_430', 'arg190_1'], '_children': ['view_431'], '_parent': ['view_430', 'arg190_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+36
+{'_name': 'mm_125', '_arguments': ['view_432', 'arg191_1'], '_children': ['view_433'], '_parent': ['view_432', 'arg191_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_126', '_arguments': ['view_434', 'arg192_1'], '_children': ['view_435'], '_parent': ['view_434', 'arg192_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_127', '_arguments': ['view_436', 'arg193_1'], '_children': ['view_437'], '_parent': ['view_436', 'arg193_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_129', '_arguments': ['view_450', 'arg195_1'], '_children': ['view_451'], '_parent': ['view_450', 'arg195_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+37
+{'_name': 'mm_130', '_arguments': ['view_452', 'arg196_1'], '_children': ['view_453'], '_parent': ['view_452', 'arg196_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+{'_name': 'mm_131', '_arguments': ['view_454', 'arg197_1'], '_children': ['view_455'], '_parent': ['view_454', 'arg197_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+38
+{'_name': 'mm_132', '_arguments': ['view_456', 'arg198_1'], '_children': ['view_457'], '_parent': ['view_456', 'arg198_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_133', '_arguments': ['view_458', 'arg199_1'], '_children': ['view_459'], '_parent': ['view_458', 'arg199_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_134', '_arguments': ['view_460', 'arg200_1'], '_children': ['view_461'], '_parent': ['view_460', 'arg200_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_136', '_arguments': ['view_474', 'arg202_1'], '_children': ['view_475'], '_parent': ['view_474', 'arg202_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+39
+{'_name': 'mm_137', '_arguments': ['view_476', 'arg203_1'], '_children': ['view_477'], '_parent': ['view_476', 'arg203_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+{'_name': 'mm_138', '_arguments': ['view_478', 'arg204_1'], '_children': ['view_479'], '_parent': ['view_478', 'arg204_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+40
+{'_name': 'mm_139', '_arguments': ['view_480', 'arg205_1'], '_children': ['view_481'], '_parent': ['view_480', 'arg205_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_140', '_arguments': ['view_482', 'arg206_1'], '_children': ['view_483'], '_parent': ['view_482', 'arg206_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_141', '_arguments': ['view_484', 'arg207_1'], '_children': ['view_485'], '_parent': ['view_484', 'arg207_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_143', '_arguments': ['view_498', 'arg209_1'], '_children': ['view_499'], '_parent': ['view_498', 'arg209_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+41
+{'_name': 'mm_144', '_arguments': ['view_500', 'arg210_1'], '_children': ['view_501'], '_parent': ['view_500', 'arg210_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+{'_name': 'mm_145', '_arguments': ['view_502', 'arg211_1'], '_children': ['view_503'], '_parent': ['view_502', 'arg211_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+42
+{'_name': 'mm_146', '_arguments': ['view_504', 'arg212_1'], '_children': ['view_505'], '_parent': ['view_504', 'arg212_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_147', '_arguments': ['view_506', 'arg213_1'], '_children': ['view_507'], '_parent': ['view_506', 'arg213_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_148', '_arguments': ['view_508', 'arg214_1'], '_children': ['view_509'], '_parent': ['view_508', 'arg214_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_150', '_arguments': ['view_522', 'arg216_1'], '_children': ['view_523'], '_parent': ['view_522', 'arg216_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+43
+{'_name': 'mm_151', '_arguments': ['view_524', 'arg217_1'], '_children': ['view_525'], '_parent': ['view_524', 'arg217_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+{'_name': 'mm_152', '_arguments': ['view_526', 'arg218_1'], '_children': ['view_527'], '_parent': ['view_526', 'arg218_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+44
+{'_name': 'mm_153', '_arguments': ['view_528', 'arg219_1'], '_children': ['view_529'], '_parent': ['view_528', 'arg219_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_154', '_arguments': ['view_530', 'arg220_1'], '_children': ['view_531'], '_parent': ['view_530', 'arg220_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_155', '_arguments': ['view_532', 'arg221_1'], '_children': ['view_533'], '_parent': ['view_532', 'arg221_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_157', '_arguments': ['view_546', 'arg223_1'], '_children': ['view_547'], '_parent': ['view_546', 'arg223_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+45
+{'_name': 'mm_158', '_arguments': ['view_548', 'arg224_1'], '_children': ['view_549'], '_parent': ['view_548', 'arg224_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+{'_name': 'mm_159', '_arguments': ['view_550', 'arg225_1'], '_children': ['view_551'], '_parent': ['view_550', 'arg225_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+46
+{'_name': 'mm_160', '_arguments': ['view_552', 'arg226_1'], '_children': ['view_553'], '_parent': ['view_552', 'arg226_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_161', '_arguments': ['view_554', 'arg227_1'], '_children': ['view_555'], '_parent': ['view_554', 'arg227_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_162', '_arguments': ['view_556', 'arg228_1'], '_children': ['view_557'], '_parent': ['view_556', 'arg228_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_164', '_arguments': ['view_570', 'arg230_1'], '_children': ['view_571'], '_parent': ['view_570', 'arg230_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+47
+{'_name': 'mm_165', '_arguments': ['view_572', 'arg231_1'], '_children': ['view_573'], '_parent': ['view_572', 'arg231_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+{'_name': 'mm_166', '_arguments': ['view_574', 'arg232_1'], '_children': ['view_575'], '_parent': ['view_574', 'arg232_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+48
+{'_name': 'mm_167', '_arguments': ['view_576', 'arg233_1'], '_children': ['view_577'], '_parent': ['view_576', 'arg233_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_168', '_arguments': ['view_578', 'arg234_1'], '_children': ['view_579'], '_parent': ['view_578', 'arg234_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_169', '_arguments': ['view_580', 'arg235_1'], '_children': ['view_581'], '_parent': ['view_580', 'arg235_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_171', '_arguments': ['view_594', 'arg237_1'], '_children': ['view_595'], '_parent': ['view_594', 'arg237_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+49
+{'_name': 'mm_172', '_arguments': ['view_596', 'arg238_1'], '_children': ['view_597'], '_parent': ['view_596', 'arg238_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+{'_name': 'mm_173', '_arguments': ['view_598', 'arg239_1'], '_children': ['view_599'], '_parent': ['view_598', 'arg239_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+50
+{'_name': 'mm_174', '_arguments': ['view_600', 'arg240_1'], '_children': ['view_601'], '_parent': ['view_600', 'arg240_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_175', '_arguments': ['view_602', 'arg241_1'], '_children': ['view_603'], '_parent': ['view_602', 'arg241_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_176', '_arguments': ['view_604', 'arg242_1'], '_children': ['view_605'], '_parent': ['view_604', 'arg242_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_178', '_arguments': ['view_618', 'arg244_1'], '_children': ['view_619'], '_parent': ['view_618', 'arg244_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+51
+{'_name': 'mm_179', '_arguments': ['view_620', 'arg245_1'], '_children': ['view_621'], '_parent': ['view_620', 'arg245_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+{'_name': 'mm_180', '_arguments': ['view_622', 'arg246_1'], '_children': ['view_623'], '_parent': ['view_622', 'arg246_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+52
+{'_name': 'mm_181', '_arguments': ['view_624', 'arg247_1'], '_children': ['view_625'], '_parent': ['view_624', 'arg247_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_182', '_arguments': ['view_626', 'arg248_1'], '_children': ['view_627'], '_parent': ['view_626', 'arg248_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_183', '_arguments': ['view_628', 'arg249_1'], '_children': ['view_629'], '_parent': ['view_628', 'arg249_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_185', '_arguments': ['view_642', 'arg251_1'], '_children': ['view_643'], '_parent': ['view_642', 'arg251_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+53
+{'_name': 'mm_186', '_arguments': ['view_644', 'arg252_1'], '_children': ['view_645'], '_parent': ['view_644', 'arg252_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+{'_name': 'mm_187', '_arguments': ['view_646', 'arg253_1'], '_children': ['view_647'], '_parent': ['view_646', 'arg253_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+54
+{'_name': 'mm_188', '_arguments': ['view_648', 'arg254_1'], '_children': ['view_649'], '_parent': ['view_648', 'arg254_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_189', '_arguments': ['view_650', 'arg255_1'], '_children': ['view_651'], '_parent': ['view_650', 'arg255_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_190', '_arguments': ['view_652', 'arg256_1'], '_children': ['view_653'], '_parent': ['view_652', 'arg256_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_192', '_arguments': ['view_666', 'arg258_1'], '_children': ['view_667'], '_parent': ['view_666', 'arg258_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+55
+{'_name': 'mm_193', '_arguments': ['view_668', 'arg259_1'], '_children': ['view_669'], '_parent': ['view_668', 'arg259_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+{'_name': 'mm_194', '_arguments': ['view_670', 'arg260_1'], '_children': ['view_671'], '_parent': ['view_670', 'arg260_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+56
+{'_name': 'mm_195', '_arguments': ['view_672', 'arg261_1'], '_children': ['view_673'], '_parent': ['view_672', 'arg261_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_196', '_arguments': ['view_674', 'arg262_1'], '_children': ['view_675'], '_parent': ['view_674', 'arg262_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_197', '_arguments': ['view_676', 'arg263_1'], '_children': ['view_677'], '_parent': ['view_676', 'arg263_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_199', '_arguments': ['view_690', 'arg265_1'], '_children': ['view_691'], '_parent': ['view_690', 'arg265_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+57
+{'_name': 'mm_200', '_arguments': ['view_692', 'arg266_1'], '_children': ['view_693'], '_parent': ['view_692', 'arg266_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+{'_name': 'mm_201', '_arguments': ['view_694', 'arg267_1'], '_children': ['view_695'], '_parent': ['view_694', 'arg267_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+58
+{'_name': 'mm_202', '_arguments': ['view_696', 'arg268_1'], '_children': ['view_697'], '_parent': ['view_696', 'arg268_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_203', '_arguments': ['view_698', 'arg269_1'], '_children': ['view_699'], '_parent': ['view_698', 'arg269_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_204', '_arguments': ['view_700', 'arg270_1'], '_children': ['view_701'], '_parent': ['view_700', 'arg270_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_206', '_arguments': ['view_714', 'arg272_1'], '_children': ['view_715'], '_parent': ['view_714', 'arg272_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+59
+{'_name': 'mm_207', '_arguments': ['view_716', 'arg273_1'], '_children': ['view_717'], '_parent': ['view_716', 'arg273_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+{'_name': 'mm_208', '_arguments': ['view_718', 'arg274_1'], '_children': ['view_719'], '_parent': ['view_718', 'arg274_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+60
+{'_name': 'mm_209', '_arguments': ['view_720', 'arg275_1'], '_children': ['view_721'], '_parent': ['view_720', 'arg275_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_210', '_arguments': ['view_722', 'arg276_1'], '_children': ['view_723'], '_parent': ['view_722', 'arg276_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_211', '_arguments': ['view_724', 'arg277_1'], '_children': ['view_725'], '_parent': ['view_724', 'arg277_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_213', '_arguments': ['view_738', 'arg279_1'], '_children': ['view_739'], '_parent': ['view_738', 'arg279_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+61
+{'_name': 'mm_214', '_arguments': ['view_740', 'arg280_1'], '_children': ['view_741'], '_parent': ['view_740', 'arg280_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+{'_name': 'mm_215', '_arguments': ['view_742', 'arg281_1'], '_children': ['view_743'], '_parent': ['view_742', 'arg281_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+62
+{'_name': 'mm_216', '_arguments': ['view_744', 'arg282_1'], '_children': ['view_745'], '_parent': ['view_744', 'arg282_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_217', '_arguments': ['view_746', 'arg283_1'], '_children': ['view_747'], '_parent': ['view_746', 'arg283_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_218', '_arguments': ['view_748', 'arg284_1'], '_children': ['view_749'], '_parent': ['view_748', 'arg284_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+{'_name': 'mm_220', '_arguments': ['view_762', 'arg286_1'], '_children': ['view_763'], '_parent': ['view_762', 'arg286_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+4096
+63
+{'_name': 'mm_221', '_arguments': ['view_764', 'arg287_1'], '_children': ['view_765'], '_parent': ['view_764', 'arg287_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+{'_name': 'mm_222', '_arguments': ['view_766', 'arg288_1'], '_children': ['view_767'], '_parent': ['view_766', 'arg288_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+11008
+{'_name': 'mm_1', '_arguments': ['view_4', 'arg67_1'], '_children': ['view_5'], '_parent': ['view_4', 'arg67_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_2', '_arguments': ['view_6', 'arg68_1'], '_children': ['view_7'], '_parent': ['view_6', 'arg68_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_5', '_arguments': ['view_22', 'arg71_1'], '_children': ['view_23'], '_parent': ['view_22', 'arg71_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_6', '_arguments': ['view_24', 'arg72_1'], '_children': ['view_25'], '_parent': ['view_24', 'arg72_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_12', '_arguments': ['view_46', 'arg78_1'], '_children': ['view_47'], '_parent': ['view_46', 'arg78_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_13', '_arguments': ['view_48', 'arg79_1'], '_children': ['view_49'], '_parent': ['view_48', 'arg79_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_19', '_arguments': ['view_70', 'arg85_1'], '_children': ['view_71'], '_parent': ['view_70', 'arg85_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_20', '_arguments': ['view_72', 'arg86_1'], '_children': ['view_73'], '_parent': ['view_72', 'arg86_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_26', '_arguments': ['view_94', 'arg92_1'], '_children': ['view_95'], '_parent': ['view_94', 'arg92_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_27', '_arguments': ['view_96', 'arg93_1'], '_children': ['view_97'], '_parent': ['view_96', 'arg93_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_33', '_arguments': ['view_118', 'arg99_1'], '_children': ['view_119'], '_parent': ['view_118', 'arg99_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_34', '_arguments': ['view_120', 'arg100_1'], '_children': ['view_121'], '_parent': ['view_120', 'arg100_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_40', '_arguments': ['view_142', 'arg106_1'], '_children': ['view_143'], '_parent': ['view_142', 'arg106_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_41', '_arguments': ['view_144', 'arg107_1'], '_children': ['view_145'], '_parent': ['view_144', 'arg107_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_47', '_arguments': ['view_166', 'arg113_1'], '_children': ['view_167'], '_parent': ['view_166', 'arg113_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_48', '_arguments': ['view_168', 'arg114_1'], '_children': ['view_169'], '_parent': ['view_168', 'arg114_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_54', '_arguments': ['view_190', 'arg120_1'], '_children': ['view_191'], '_parent': ['view_190', 'arg120_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_55', '_arguments': ['view_192', 'arg121_1'], '_children': ['view_193'], '_parent': ['view_192', 'arg121_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_61', '_arguments': ['view_214', 'arg127_1'], '_children': ['view_215'], '_parent': ['view_214', 'arg127_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_62', '_arguments': ['view_216', 'arg128_1'], '_children': ['view_217'], '_parent': ['view_216', 'arg128_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_68', '_arguments': ['view_238', 'arg134_1'], '_children': ['view_239'], '_parent': ['view_238', 'arg134_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_69', '_arguments': ['view_240', 'arg135_1'], '_children': ['view_241'], '_parent': ['view_240', 'arg135_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_75', '_arguments': ['view_262', 'arg141_1'], '_children': ['view_263'], '_parent': ['view_262', 'arg141_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_76', '_arguments': ['view_264', 'arg142_1'], '_children': ['view_265'], '_parent': ['view_264', 'arg142_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_82', '_arguments': ['view_286', 'arg148_1'], '_children': ['view_287'], '_parent': ['view_286', 'arg148_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_83', '_arguments': ['view_288', 'arg149_1'], '_children': ['view_289'], '_parent': ['view_288', 'arg149_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_89', '_arguments': ['view_310', 'arg155_1'], '_children': ['view_311'], '_parent': ['view_310', 'arg155_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_90', '_arguments': ['view_312', 'arg156_1'], '_children': ['view_313'], '_parent': ['view_312', 'arg156_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_96', '_arguments': ['view_334', 'arg162_1'], '_children': ['view_335'], '_parent': ['view_334', 'arg162_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_97', '_arguments': ['view_336', 'arg163_1'], '_children': ['view_337'], '_parent': ['view_336', 'arg163_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_103', '_arguments': ['view_358', 'arg169_1'], '_children': ['view_359'], '_parent': ['view_358', 'arg169_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_104', '_arguments': ['view_360', 'arg170_1'], '_children': ['view_361'], '_parent': ['view_360', 'arg170_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_110', '_arguments': ['view_382', 'arg176_1'], '_children': ['view_383'], '_parent': ['view_382', 'arg176_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_111', '_arguments': ['view_384', 'arg177_1'], '_children': ['view_385'], '_parent': ['view_384', 'arg177_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_117', '_arguments': ['view_406', 'arg183_1'], '_children': ['view_407'], '_parent': ['view_406', 'arg183_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_118', '_arguments': ['view_408', 'arg184_1'], '_children': ['view_409'], '_parent': ['view_408', 'arg184_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_124', '_arguments': ['view_430', 'arg190_1'], '_children': ['view_431'], '_parent': ['view_430', 'arg190_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_125', '_arguments': ['view_432', 'arg191_1'], '_children': ['view_433'], '_parent': ['view_432', 'arg191_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_131', '_arguments': ['view_454', 'arg197_1'], '_children': ['view_455'], '_parent': ['view_454', 'arg197_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_132', '_arguments': ['view_456', 'arg198_1'], '_children': ['view_457'], '_parent': ['view_456', 'arg198_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_138', '_arguments': ['view_478', 'arg204_1'], '_children': ['view_479'], '_parent': ['view_478', 'arg204_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_139', '_arguments': ['view_480', 'arg205_1'], '_children': ['view_481'], '_parent': ['view_480', 'arg205_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_145', '_arguments': ['view_502', 'arg211_1'], '_children': ['view_503'], '_parent': ['view_502', 'arg211_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_146', '_arguments': ['view_504', 'arg212_1'], '_children': ['view_505'], '_parent': ['view_504', 'arg212_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_152', '_arguments': ['view_526', 'arg218_1'], '_children': ['view_527'], '_parent': ['view_526', 'arg218_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_153', '_arguments': ['view_528', 'arg219_1'], '_children': ['view_529'], '_parent': ['view_528', 'arg219_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_159', '_arguments': ['view_550', 'arg225_1'], '_children': ['view_551'], '_parent': ['view_550', 'arg225_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_160', '_arguments': ['view_552', 'arg226_1'], '_children': ['view_553'], '_parent': ['view_552', 'arg226_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_166', '_arguments': ['view_574', 'arg232_1'], '_children': ['view_575'], '_parent': ['view_574', 'arg232_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_167', '_arguments': ['view_576', 'arg233_1'], '_children': ['view_577'], '_parent': ['view_576', 'arg233_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_173', '_arguments': ['view_598', 'arg239_1'], '_children': ['view_599'], '_parent': ['view_598', 'arg239_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_174', '_arguments': ['view_600', 'arg240_1'], '_children': ['view_601'], '_parent': ['view_600', 'arg240_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_180', '_arguments': ['view_622', 'arg246_1'], '_children': ['view_623'], '_parent': ['view_622', 'arg246_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_181', '_arguments': ['view_624', 'arg247_1'], '_children': ['view_625'], '_parent': ['view_624', 'arg247_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_187', '_arguments': ['view_646', 'arg253_1'], '_children': ['view_647'], '_parent': ['view_646', 'arg253_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_188', '_arguments': ['view_648', 'arg254_1'], '_children': ['view_649'], '_parent': ['view_648', 'arg254_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_194', '_arguments': ['view_670', 'arg260_1'], '_children': ['view_671'], '_parent': ['view_670', 'arg260_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_195', '_arguments': ['view_672', 'arg261_1'], '_children': ['view_673'], '_parent': ['view_672', 'arg261_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_201', '_arguments': ['view_694', 'arg267_1'], '_children': ['view_695'], '_parent': ['view_694', 'arg267_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_202', '_arguments': ['view_696', 'arg268_1'], '_children': ['view_697'], '_parent': ['view_696', 'arg268_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_208', '_arguments': ['view_718', 'arg274_1'], '_children': ['view_719'], '_parent': ['view_718', 'arg274_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_209', '_arguments': ['view_720', 'arg275_1'], '_children': ['view_721'], '_parent': ['view_720', 'arg275_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_215', '_arguments': ['view_742', 'arg281_1'], '_children': ['view_743'], '_parent': ['view_742', 'arg281_1'], '_tensor_meta': {'shape': torch.Size([40, 11008]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}
+{'_name': 'mm_216', '_arguments': ['view_744', 'arg282_1'], '_children': ['view_745'], '_parent': ['view_744', 'arg282_1'], '_tensor_meta': {'shape': torch.Size([40, 4096]), 'dtype': <Tensordtype.Float32: 'float32'>}, '_op_type': <OpType.ReduceType: 5>, '_device': 'cpu', '_transpose_a': False, '_transpose_b': True}

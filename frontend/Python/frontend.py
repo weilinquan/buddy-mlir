@@ -31,6 +31,8 @@ from .ops.linalg import ops_registry as linalg_ops_registry
 from .graph import Graph, Tensordtype, TensorMeta
 from .frontend_ops_map import torch_ops_map
 from .graph.transform import fuse_transpose_matmul, expand_same_shape_eliminate
+from .graph.kvcache import Llama7BModelConfig
+from .graph.transform import apply_kv_cache
 
 class DynamoCompiler:
     """
@@ -166,8 +168,8 @@ class DynamoCompiler:
                         node_dtype,
                     )
                 graph.add_node(buddy_node)
-            pattern_list = [fuse_transpose_matmul, expand_same_shape_eliminate]
-            # graph.perform(pattern_list)
+            pattern_list = [fuse_transpose_matmul, expand_same_shape_eliminate, apply_kv_cache(Llama7BModelConfig())]
+            graph.perform(pattern_list)
             self._imported_graphs.append(graph)
             self._imported_params[graph] = params_flat
             return graph.dynamo_run()
