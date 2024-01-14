@@ -1,4 +1,5 @@
 from enum import Enum
+from typing import Dict
 import torch
 
 
@@ -51,6 +52,9 @@ class Op:
 
     def set_device(self, device):
         self._device = device
+
+    def shape_infer(self, op_table):
+        pass
 
     @classmethod
     def fx_create_node(
