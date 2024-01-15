@@ -36,27 +36,6 @@ import torch
 from .op_def import *
 
 
-class Tensordtype(Enum):
-    """
-    Enum class for declare tensor dtype.
-    """
-
-    Int32 = "int32"
-    Int64 = "int64"
-    Float32 = "float32"
-    Bool = "bool"
-
-
-class TensorMeta:
-    """
-    Store tensor's shape and dtype, overlook tensor's raw data.
-    """
-
-    def __init__(self, shape, dtype) -> None:
-        self.shape = shape
-        self.dtype = dtype
-
-
 def make_output_memref_descriptor(ranks, dtypes):
     """
     Make output memref descriptor for the given memref ranks and dtypes.
@@ -162,6 +141,8 @@ class Graph:
                     np_type = np.dtype(np.int64)
                 case "f32":
                     np_type = np.dtype(np.float32)
+                case _:
+                    raise NotImplementedError(f"Unsupported dtype {dtype}")
             self._output_memref.append(
                 ctypes.pointer(
                     ctypes.pointer(
@@ -183,6 +164,7 @@ class Graph:
         """
         if self._imported_module is None:
             self.lower_to_top_level_ir()
+
         with ir.Location.unknown(self._ctx):
             pm = PassManager("builtin.module")
             pm.add("func.func(tosa-to-linalg-named)")
@@ -275,6 +257,7 @@ class Graph:
                 data_ptr = cast_c_ptr(outdata_ptr, output_ptr[0])
                 output_tensor.append(rt.ranked_memref_to_numpy(data_ptr))
                 outdata_ptr = move_c_ptr(outdata_ptr, output_ptr[0])
+            
             return [torch.from_numpy(tensor) for tensor in output_tensor]
 
         return exec_buddy_graph

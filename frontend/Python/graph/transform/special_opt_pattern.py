@@ -91,6 +91,7 @@ def make_decode_graph(graph: Graph, kv_ops: List[str], current_seq_len):
     for i, op in enumerate(decode_graph._body):
         current_cache_index = 0
         if op.name in kv_ops:
+            op.tensor_meta["shape"][0]=current_seq_len
             node_name = "concat_kv_cache" + str(len(decode_graph._body))
             concat_cache_op = CatOp.fx_create_node(
                 node_name,
@@ -99,6 +100,7 @@ def make_decode_graph(graph: Graph, kv_ops: List[str], current_seq_len):
                 op.tensor_meta["shape"],
                 op.tensor_meta["dtype"],
             )
+            op.tensor_meta["shape"][0]=1
             for child in op._children:
                 for p, parent in enumerate(decode_graph._node_table[child]._parent):
                     if parent == op.name:
