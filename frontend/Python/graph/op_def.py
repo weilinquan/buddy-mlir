@@ -2,6 +2,7 @@ from enum import Enum
 from typing import Dict, Optional, List, Tuple
 import functools
 import torch
+from copy import deepcopy
 
 
 class Tensordtype(Enum):
@@ -21,7 +22,7 @@ class TensorMeta:
     """
 
     def __init__(self, shape, dtype) -> None:
-        self.shape = shape
+        self.shape = list(shape)
         self.dtype = dtype
 
 
@@ -79,6 +80,29 @@ class Op:
     def shape_infer(self, op_table, fixed_out_shape: bool = False):
         for child in self._children:
             op_table[child].shape_infer(op_table)
+    
+    @classmethod
+    def copy_constructor(cls, op):
+        new_op = cls()
+        new_op._name = op.name
+        new_op._arguments = []
+        for arg in op.args:
+            if isinstance(arg, List):
+                new_op._arguments.append(list(arg))
+            elif isinstance(arg, torch.dtype):
+                new_op._arguments.append(arg)
+            elif isinstance(arg, float):
+                new_op._arguments.append(arg)
+            elif isinstance(arg, int):
+                new_op._arguments.append(arg)
+            else:
+                new_op._arguments.append(str(arg))
+        new_op._children = deepcopy(op._children)
+        new_op._parent = deepcopy(op._parent)
+        new_op._tensor_meta = deepcopy(op.tensor_meta)
+        new_op._op_type = op._op_type
+        new_op._device = op._device
+        return new_op
 
     @classmethod
     def fx_create_node(
@@ -147,6 +171,29 @@ class MatmulOp(Op):
         self._transpose_a = False
         self._transpose_b = False
         self._op_type = OpType.ReduceType
+    
+    @classmethod
+    def copy_constructor(cls, op: Op):
+        new_op = cls()
+        new_op._name = op.name
+        new_op._arguments = []
+        for arg in op.args:
+            if isinstance(arg, List):
+                new_op._arguments.append(list(arg))
+            elif isinstance(arg, float):
+                new_op._arguments.append(arg)
+            elif isinstance(arg, int):
+                new_op._arguments.append(arg)
+            else:
+                new_op._arguments.append(str(arg))
+        new_op._children = deepcopy(op._children)
+        new_op._parent = deepcopy(op._parent)
+        new_op._tensor_meta = deepcopy(op.tensor_meta)
+        new_op._op_type = op._op_type
+        new_op._device = op._device
+        new_op._transpose_a = op._transpose_a
+        new_op._transpose_b = op._transpose_b
+        return new_op
 
     def shape_infer(
         self, op_table: Dict[str, Op], fixed_out_shape: bool = False
@@ -189,6 +236,7 @@ class MatmulOp(Op):
                     ] = self.tensor_meta["shape"][1]
                     op_table[self.args[1]].shape_infer(op_table, True)
         else:
+            origin_shape = list(self.tensor_meta["shape"])
             if self._transpose_a:
                 self.tensor_meta["shape"][0] = op_table[
                     self.args[0]
@@ -205,8 +253,10 @@ class MatmulOp(Op):
                 self.tensor_meta["shape"][1] = op_table[
                     self.args[1]
                 ].tensor_meta["shape"][1]
-        for child in self._children:
-            op_table[child].shape_infer(op_table)
+            if list(self.tensor_meta["shape"]) == origin_shape:
+                return
+            for child in self._children:
+                op_table[child].shape_infer(op_table)
 
 
 class GetItemOp(Op):
@@ -264,9 +314,11 @@ class UnsqueezeOp(Op):
             output_shape = list(
                 op_table[self.args[0]].tensor_meta["shape"]
             ).insert(self.args[1], 1)
+            if list(self.tensor_meta["shape"]) == output_shape:
+                return
             self.tensor_meta["shape"] = output_shape
-        for child in self._children:
-            op_table[child].shape_infer(op_table)
+            for child in self._children:
+                op_table[child].shape_infer(op_table)
 
 
 class ViewOp(Op):
@@ -305,6 +357,8 @@ class ViewOp(Op):
                     if i == origin_out_shape[non_equal_idx]:
                         inp_shape_count += 1
                         inp_shape_idx = idx
+                print(input_op.__dict__)
+                print(self.__dict__)
                 assert (
                     inp_shape_count == 1
                 ), "only support changed dim is same between origin out and origin input"
@@ -314,9 +368,35 @@ class ViewOp(Op):
                 input_op.shape_infer(op_table, True)
             self.args[1] = self.tensor_meta["shape"]
         else:
-            self.tensor_meta["shape"] = origin_out_shape
-        for child in self._children:
-            op_table[child].shape_infer(op_table)
+            total_nums = functools.reduce(
+                lambda x, y: x * y, input_op.tensor_meta["shape"]
+            )
+            index = -1
+            unknown_dim_count = 0
+            print(input_op.__dict__)
+            print(self.__dict__, flush=True)
+            while len(self.args[1])+index >= 0 and len(input_op.tensor_meta["shape"])+index >= 0:
+                if self.args[1][index] == input_op.tensor_meta["shape"][index]:
+                    total_nums = total_nums // self.args[1][index]
+                else:
+                    self.args[1][index] = -1
+                    unknown_dim_count += 1
+                index-=1
+            assert unknown_dim_count < 2, "unknown dim should only be one"
+            total_nums = functools.reduce(
+                lambda x, y: x * y, input_op.tensor_meta["shape"]
+            )
+            for idx, i in enumerate(self.args[1]):
+                if i != -1:
+                    total_nums = total_nums // i
+            for idx, i in enumerate(self.args[1]):
+                if i == -1:
+                    self.args[1][idx] = total_nums
+            if list(self.tensor_meta["shape"]) == list(self.args[1]):
+                return
+            self.tensor_meta["shape"] = list(self.args[1])
+            for child in self._children:
+                op_table[child].shape_infer(op_table)
 
 
 class EmbeddingOp(Op):
@@ -331,15 +411,18 @@ class EmbeddingOp(Op):
         input2 = op_table[self.args[1]]
         if fixed_out_shape:
             current_embed_shape = self.tensor_meta["shape"][:-1]
-            if list(current_embed_shape) != list(input1.tensor_meta["shape"]):
-                input1.tensor_meta["shape"] = current_embed_shape
-                input1.shape_infer(op_table, True)
+            if list(current_embed_shape) != list(input2.tensor_meta["shape"]):
+                input2.tensor_meta["shape"] = current_embed_shape
+                input2.shape_infer(op_table, True)
         else:
-            self.tensor_meta["shape"] = input1.tensor_meta["shape"][:-1] + [
-                input2.tensor_meta["shape"][-1]
+            origin_shape = list(self.tensor_meta["shape"])
+            self.tensor_meta["shape"] = input2.tensor_meta["shape"][:-1] + [
+                input1.tensor_meta["shape"][-1]
             ]
-        for child in self._children:
-            op_table[child].shape_infer(op_table)
+            if list(self.tensor_meta["shape"]) == list(origin_shape):
+                return
+            for child in self._children:
+                op_table[child].shape_infer(op_table)
 
 
 class OnesOp(Op):
@@ -359,9 +442,11 @@ class FullOp(Op):
         if fixed_out_shape:
             self.args[0] = self.tensor_meta["shape"]
         else:
+            if list(self.tensor_meta["shape"]) == list(self.args[0]):
+                return
             self.tensor_meta["shape"] = self.args[0]
-        for child in self._children:
-            op_table[child].shape_infer(op_table)
+            for child in self._children:
+                op_table[child].shape_infer(op_table)
 
 
 class LessthanOp(Op):
@@ -403,9 +488,11 @@ class LessthanOp(Op):
             out_shape = []
             for idx, i in enumerate(input2_shape):
                 out_shape.append(max(input1_shape[idx], input2_shape[idx]))
+            if list(self.tensor_meta["shape"]) == out_shape:
+                return
             self.tensor_meta["shape"] = out_shape
-        for child in self._children:
-            op_table[child].shape_infer(op_table)
+            for child in self._children:
+                op_table[child].shape_infer(op_table)
 
 
 class MaskedFillOp(Op):
@@ -449,9 +536,11 @@ class SliceOp(Op):
             if self.args[3] >= out_shape[self.args[1]]:
                 self.args[3] = out_shape[self.args[1]]
             out_shape[self.args[1]] = self.args[3] - self.args[2]
+            if list(self.tensor_meta["shape"]) == out_shape:
+                return
             self.tensor_meta["shape"] = out_shape
-        for child in self._children:
-            op_table[child].shape_infer(op_table)
+            for child in self._children:
+                op_table[child].shape_infer(op_table)
 
 
 class ToCopyOp(Op):
@@ -482,9 +571,11 @@ class PowOp(Op):
                 input1.tensor_meta["shape"] = self.tensor_meta["shape"]
                 input1.shape_infer(op_table, True)
         else:
+            if list(self.tensor_meta["shape"]) == list(input1.tensor_meta["shape"]):
+                return
             self.tensor_meta["shape"] = input1.tensor_meta["shape"]
-        for child in self._children:
-            op_table[child].shape_infer(op_table)
+            for child in self._children:
+                op_table[child].shape_infer(op_table)
 
 
 class MeanOp(Op):
@@ -516,8 +607,11 @@ class MeanOp(Op):
                         out_shape.append(1)
                 else:
                     out_shape.append(i)
-        for child in self._children:
-            op_table[child].shape_infer(op_table)
+            if list(self.tensor_meta["shape"]) == out_shape:
+                return
+            self.tensor_meta["shape"] = out_shape
+            for child in self._children:
+                op_table[child].shape_infer(op_table)
 
 
 class RsqrtOp(Op):
@@ -536,9 +630,11 @@ class RsqrtOp(Op):
                 input1.tensor_meta["shape"] = self.tensor_meta["shape"]
                 input1.shape_infer(op_table, True)
         else:
+            if list(self.tensor_meta["shape"]) == list(input1.tensor_meta["shape"]):
+                return
             self.tensor_meta["shape"] = input1.tensor_meta["shape"]
-        for child in self._children:
-            op_table[child].shape_infer(op_table)
+            for child in self._children:
+                op_table[child].shape_infer(op_table)
 
 
 class MulOp(Op):
@@ -580,9 +676,11 @@ class MulOp(Op):
             out_shape = []
             for idx, i in enumerate(input2_shape):
                 out_shape.append(max(input1_shape[idx], input2_shape[idx]))
+            if list(self.tensor_meta["shape"]) == out_shape:
+                return
             self.tensor_meta["shape"] = out_shape
-        for child in self._children:
-            op_table[child].shape_infer(op_table)
+            for child in self._children:
+                op_table[child].shape_infer(op_table)
 
 
 class TransposeOp(Op):
@@ -627,9 +725,11 @@ class IndexOp(Op):
                 index_shape = index_op.tensor_meta["shape"]
                 out_shape += list(index_shape)
             out_shape += list(input1.tensor_meta["shape"][len(index_list) :])
+            if list(self.tensor_meta["shape"]) == out_shape:
+                return
             self.tensor_meta["shape"] = out_shape
-        for child in self._children:
-            op_table[child].shape_infer(op_table)
+            for child in self._children:
+                op_table[child].shape_infer(op_table)
 
 
 class NegOp(Op):
@@ -648,9 +748,11 @@ class NegOp(Op):
                 input1.tensor_meta["shape"] = self.tensor_meta["shape"]
                 input1.shape_infer(op_table, True)
         else:
+            if list(self.tensor_meta["shape"]) == list(input1.tensor_meta["shape"]):
+                return
             self.tensor_meta["shape"] = input1.tensor_meta["shape"]
-        for child in self._children:
-            op_table[child].shape_infer(op_table)
+            for child in self._children:
+                op_table[child].shape_infer(op_table)
 
 
 class CatOp(Op):
@@ -685,10 +787,13 @@ class CatOp(Op):
                 if need_back_infer:
                     input_op.shape_infer(op_table, True)
         else:
+            origin_shape = list(self.tensor_meta["shape"])
             self.tensor_meta["shape"] = input_list[0].tensor_meta["shape"]
             self.tensor_meta["shape"][self.args[1]] = out_dim
-        for child in self._children:
-            op_table[child].shape_infer(op_table)
+            if list(self.tensor_meta["shape"]) == origin_shape:
+                return
+            for child in self._children:
+                op_table[child].shape_infer(op_table)
 
 
 class SqueezeOp(Op):
@@ -717,9 +822,11 @@ class SqueezeOp(Op):
                     self.args[1] + 1 :
                 ]
             )
+            if list(self.tensor_meta["shape"]) == output_shape:
+                return
             self.tensor_meta["shape"] = output_shape
-        for child in self._children:
-            op_table[child].shape_infer(op_table)
+            for child in self._children:
+                op_table[child].shape_infer(op_table)
 
 
 class BatchMatmulOp(Op):
@@ -748,6 +855,7 @@ class BatchMatmulOp(Op):
                 ] = self.tensor_meta["shape"][2]
                 op_table[self.args[1]].shape_infer(op_table, True)
         else:
+            origin_shape = list(self.tensor_meta["shape"])
             self.tensor_meta["shape"][0] = op_table[self.args[0]].tensor_meta[
                 "shape"
             ][0]
@@ -757,8 +865,10 @@ class BatchMatmulOp(Op):
             self.tensor_meta["shape"][2] = op_table[self.args[1]].tensor_meta[
                 "shape"
             ][2]
-        for child in self._children:
-            op_table[child].shape_infer(op_table)
+            if list(self.tensor_meta["shape"]) == origin_shape:
+                return
+            for child in self._children:
+                op_table[child].shape_infer(op_table)
 
 
 class DivOp(Op):
@@ -812,9 +922,11 @@ class DivOp(Op):
             out_shape = []
             for idx, i in enumerate(input2_shape):
                 out_shape.append(max(input1_shape[idx], input2_shape[idx]))
+            if list(self.tensor_meta["shape"]) == out_shape:
+                return
             self.tensor_meta["shape"] = out_shape
-        for child in self._children:
-            op_table[child].shape_infer(op_table)
+            for child in self._children:
+                op_table[child].shape_infer(op_table)
 
 
 class SoftmaxOp(Op):
@@ -826,7 +938,7 @@ class SoftmaxOp(Op):
 class CloneOp(Op):
     def __init__(self) -> None:
         super().__init__()
-        self._op_type = OpType.ReduceType
+        self._op_type = OpType.ElementwiseType
 
     def shape_infer(
         self, op_table: Dict[str, Op], fixed_out_shape: bool = False
@@ -839,9 +951,11 @@ class CloneOp(Op):
                 input1.tensor_meta["shape"] = self.tensor_meta["shape"]
                 input1.shape_infer(op_table, True)
         else:
+            if list(self.tensor_meta["shape"]) == list(input1.tensor_meta["shape"]):
+                return
             self.tensor_meta["shape"] = input1.tensor_meta["shape"]
-        for child in self._children:
-            op_table[child].shape_infer(op_table)
+            for child in self._children:
+                op_table[child].shape_infer(op_table)
 
 
 class SiluOp(Op):
@@ -901,9 +1015,11 @@ class AddOp(Op):
             out_shape = []
             for idx, i in enumerate(input2_shape):
                 out_shape.append(max(input1_shape[idx], input2_shape[idx]))
+            if list(self.tensor_meta["shape"]) == out_shape:
+                return
             self.tensor_meta["shape"] = out_shape
-        for child in self._children:
-            op_table[child].shape_infer(op_table)
+            for child in self._children:
+                op_table[child].shape_infer(op_table)
 
 
 class MaxPool2dWithIndicesOp(Op):
@@ -955,8 +1071,11 @@ class AmaxOp(Op):
                         out_shape.append(1)
                 else:
                     out_shape.append(i)
-        for child in self._children:
-            op_table[child].shape_infer(op_table)
+            if list(self.tensor_meta["shape"]) == out_shape:
+                return
+            self.tensor_meta["shape"] == out_shape
+            for child in self._children:
+                op_table[child].shape_infer(op_table)
 
 
 class SubOp(Op):
@@ -1010,9 +1129,11 @@ class SubOp(Op):
             out_shape = []
             for idx, i in enumerate(input2_shape):
                 out_shape.append(max(input1_shape[idx], input2_shape[idx]))
+            if list(self.tensor_meta["shape"]) == out_shape:
+                return
             self.tensor_meta["shape"] = out_shape
-        for child in self._children:
-            op_table[child].shape_infer(op_table)
+            for child in self._children:
+                op_table[child].shape_infer(op_table)
 
 
 class ConvertElementTypeOp(Op):
@@ -1031,9 +1152,11 @@ class ConvertElementTypeOp(Op):
                 input1.tensor_meta["shape"] = self.tensor_meta["shape"]
                 input1.shape_infer(op_table, True)
         else:
+            if list(self.tensor_meta["shape"]) == list(input1.tensor_meta["shape"]):
+                return
             self.tensor_meta["shape"] = input1.tensor_meta["shape"]
-        for child in self._children:
-            op_table[child].shape_infer(op_table)
+            for child in self._children:
+                op_table[child].shape_infer(op_table)
 
 
 class ExpOp(Op):
@@ -1052,9 +1175,11 @@ class ExpOp(Op):
                 input1.tensor_meta["shape"] = self.tensor_meta["shape"]
                 input1.shape_infer(op_table, True)
         else:
+            if list(self.tensor_meta["shape"]) == list(input1.tensor_meta["shape"]):
+                return
             self.tensor_meta["shape"] = input1.tensor_meta["shape"]
-        for child in self._children:
-            op_table[child].shape_infer(op_table)
+            for child in self._children:
+                op_table[child].shape_infer(op_table)
 
 
 class ExpandOp(Op):
@@ -1081,9 +1206,11 @@ class ExpandOp(Op):
             if need_back_infer:
                 input1.shape_infer(op_table, True)
         else:
+            if list(self.tensor_meta["shape"]) == list(self.args[1]):
+                return
             self.tensor_meta["shape"] = self.args[1]
-        for child in self._children:
-            op_table[child].shape_infer(op_table)
+            for child in self._children:
+                op_table[child].shape_infer(op_table)
 
 
 class PermuteOp(Op):
@@ -1106,9 +1233,11 @@ class PermuteOp(Op):
             out_shape = []
             for idx, i in enumerate(self.args[1]):
                 out_shape.append(input1.tensor_meta["shape"][i])
+            if out_shape == self.tensor_meta["shape"]:
+                return
             self.tensor_meta["shape"] = out_shape
-        for child in self._children:
-            op_table[child].shape_infer(op_table)
+            for child in self._children:
+                op_table[child].shape_infer(op_table)
 
 
 class ReshapeOp(Op):
@@ -1152,8 +1281,11 @@ class SumDimOp(Op):
                         out_shape.append(1)
                 else:
                     out_shape.append(i)
-        for child in self._children:
-            op_table[child].shape_infer(op_table)
+            if out_shape == list(self.tensor_meta["shape"]):
+                return
+            self.tensor_meta["shape"] = out_shape
+            for child in self._children:
+                op_table[child].shape_infer(op_table)
 
 
 class TanhOp(Op):
@@ -1209,9 +1341,12 @@ class SigmoidOp(Op):
                 input1.tensor_meta["shape"] = self.tensor_meta["shape"]
                 input1.shape_infer(op_table, True)
         else:
+            origin_shape = deepcopy(list(self.tensor_meta["shape"]))
             self.tensor_meta["shape"] = input1.tensor_meta["shape"]
-        for child in self._children:
-            op_table[child].shape_infer(op_table)
+            if origin_shape == list(self.tensor_meta["shape"]):
+                return
+            for child in self._children:
+                op_table[child].shape_infer(op_table)
 
 
 class IotaOp(Op):
@@ -1221,6 +1356,30 @@ class IotaOp(Op):
         self._start = None
         self._end = None
         self._step = None
+    
+    @classmethod
+    def copy_constructor(cls, op: Op):
+        new_op = cls()
+        new_op._name = op.name
+        new_op._arguments = []
+        for arg in op.args:
+            if isinstance(arg, List):
+                new_op._arguments.append(list(arg))
+            elif isinstance(arg, float):
+                new_op._arguments.append(arg)
+            elif isinstance(arg, int):
+                new_op._arguments.append(arg)
+            else:
+                new_op._arguments.append(str(arg))
+        new_op._children = deepcopy(op._children)
+        new_op._parent = deepcopy(op._parent)
+        new_op._tensor_meta = deepcopy(op.tensor_meta)
+        new_op._op_type = op._op_type
+        new_op._device = op._device
+        new_op._start = op._start
+        new_op._end = op._end
+        new_op._step = op._step
+        return new_op
 
     @classmethod
     def fx_create_node(
@@ -1273,8 +1432,6 @@ class IotaOp(Op):
                 self._end = (
                     self.tensor_meta["shape"][-1] * self._step + self._start
                 )
-        for child in self._children:
-            op_table[child].shape_infer(op_table)
 
 class ScalarTensorOp(Op):
     def __init__(self) -> None:
@@ -1301,6 +1458,9 @@ class WhereOp(Op):
                 input1.tensor_meta["shape"] = self.tensor_meta["shape"]
                 input1.shape_infer(op_table, True)
         else:
+            origin_shape = deepcopy(list(self.tensor_meta["shape"]))
             self.tensor_meta["shape"] = input1.tensor_meta["shape"]
-        for child in self._children:
-            op_table[child].shape_infer(op_table)
+            if origin_shape == list(self.tensor_meta["shape"]):
+                return
+            for child in self._children:
+                op_table[child].shape_infer(op_table)

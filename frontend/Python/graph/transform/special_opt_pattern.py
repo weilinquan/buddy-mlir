@@ -4,6 +4,7 @@ from .. import Op, MatmulOp, BatchMatmulOp, CloneOp, CatOp, PlaceholderOp
 from typing import List
 from copy import deepcopy
 from ..graph import Tensordtype, TensorMeta
+import os
 
 
 def kv_pattern_match(model_config: ModelConfig, graph: Graph):
@@ -26,7 +27,7 @@ def kv_pattern_match(model_config: ModelConfig, graph: Graph):
 
 
 def make_prefill_graph(graph: Graph, kv_ops: List[str]):
-    prefill_graph = deepcopy(graph)
+    prefill_graph = graph.copy_constructor(graph)
     prefill_graph._func_name = "prefill_forward"
     setattr(prefill_graph, "kv_cache", [])
     return_op = prefill_graph._body[-1]
@@ -51,9 +52,10 @@ def make_prefill_graph(graph: Graph, kv_ops: List[str]):
 
 
 def make_decode_graph(graph: Graph, kv_ops: List[str], current_seq_len):
-    decode_graph = deepcopy(graph)
+    decode_graph = graph.copy_constructor(graph)
     decode_graph._func_name = "decode_" + str(current_seq_len) + "_forward"
     origin_input_seq = decode_graph._inputs[-1]
+    changed_ops = []
     assert (
         origin_input_seq.dtype == Tensordtype.Int64
     ), "input sequence's dtype should be int64"
@@ -71,9 +73,9 @@ def make_decode_graph(graph: Graph, kv_ops: List[str], current_seq_len):
                 kv_cache_op = PlaceholderOp.fx_create_node(
                     node_name,
                     [],
-                    [kv_op.name],
-                    [current_seq_len - 1, kv_op.tensor_mata["shape"][-1]],
-                    kv_op.tensor_meta["dtype"],
+                    [kv_op],
+                    [current_seq_len - 1, decode_graph._node_table[kv_op].tensor_meta["shape"][-1]],
+                    decode_graph._node_table[kv_op].tensor_meta["dtype"],
                 )
                 decode_graph._body.insert(current_index + 1, kv_cache_op)
                 decode_graph._node_table[node_name] = kv_cache_op
@@ -81,23 +83,28 @@ def make_decode_graph(graph: Graph, kv_ops: List[str], current_seq_len):
             break
     assert seq_placeholder_op != None
     origin_input_seq.shape[-1] = 1
+    origin_ops = []
+    origin_ops.append(seq_placeholder_op.copy_constructor(seq_placeholder_op))
     seq_placeholder_op.tensor_meta["shape"][-1] = 1
+    changed_ops.append(seq_placeholder_op)
     for kv_op in kv_ops:
         kv_tensor_meta = TensorMeta(
-            kv_op.tensor_meta["shape"], kv_op.tensor_meta["dtype"]
+            decode_graph._node_table[kv_op].tensor_meta["shape"], decode_graph._node_table[kv_op].tensor_meta["dtype"]
         )
         decode_graph._inputs.append(kv_tensor_meta)
     return_op = decode_graph._node_table["output"]
     for i, op in enumerate(decode_graph._body):
         current_cache_index = 0
         if op.name in kv_ops:
-            op.tensor_meta["shape"][0]=current_seq_len
+            origin_ops.append(op.copy_constructor(op))
+            concat_shape = deepcopy(op.tensor_meta["shape"])
+            concat_shape[0] = current_seq_len
             node_name = "concat_kv_cache" + str(len(decode_graph._body))
             concat_cache_op = CatOp.fx_create_node(
                 node_name,
                 [op.name, "cache_"+str(current_cache_index)],
-                op._children,
-                op.tensor_meta["shape"],
+                deepcopy(op._children),
+                concat_shape,
                 op.tensor_meta["dtype"],
             )
             op.tensor_meta["shape"][0]=1
@@ -111,8 +118,13 @@ def make_decode_graph(graph: Graph, kv_ops: List[str], current_seq_len):
             decode_graph._node_table[node_name] = concat_cache_op
             return_op.add_argument(node_name)
             return_op.add_parent(node_name)
-    for op in enumerate(decode_graph._body):
-        op.shape_infer()
+            changed_ops.append(op)
+    for op in decode_graph._body:
+        print(op.__dict__)
+    for i, op in enumerate(changed_ops):
+        print(op.__dict__, flush=True)
+        op.shape_infer(decode_graph._node_table, True, origin_ops[i])
+    return decode_graph
 
 
 def apply_kv_cache(model_config: ModelConfig):
@@ -124,5 +136,13 @@ def apply_kv_cache(model_config: ModelConfig):
         model_config.verify_pattern(graph)
 
         kv_ops = kv_pattern_match(model_config, origin_graph)
+
+        decode_graph = make_decode_graph(graph, kv_ops, 7)
+        for op in decode_graph._body:
+            print(op.__dict__)
+        decode_graph.lower_to_top_level_ir()
+        with open(os.path.join('/root/buddy-mlir/examples/BuddyLlama/', "llama_decode_7.mlir"), "w") as module_file:
+            print(decode_graph._imported_module, file=module_file)
+        exit()
 
     return verify_and_apply

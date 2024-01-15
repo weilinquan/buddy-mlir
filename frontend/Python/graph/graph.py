@@ -32,6 +32,7 @@ from enum import Enum
 import functools
 import numpy as np
 import torch
+from copy import deepcopy
 
 from .op_def import *
 
@@ -101,6 +102,28 @@ class Graph:
         self._output_memref: List = None
         self._output_descriptor  = None
         self.ee_ = None
+
+    @classmethod
+    def copy_constructor(cls, graph):
+        new_graph = cls(None, None, None, None)
+        new_graph._body = []
+        new_graph._node_table = {}
+        for op in graph._body:
+            new_op = op.copy_constructor(op)
+            new_graph._body.append(new_op)
+            new_graph._node_table[new_op.name] = new_op
+        new_graph._inputs = deepcopy(graph._inputs)
+        new_graph._fake_params = deepcopy(graph._fake_params)
+        new_graph._outputs = deepcopy(graph._outputs)
+        new_graph.device = graph.device
+        new_graph._imported_module = None
+        new_graph._ops_registry = graph._ops_registry
+        new_graph._func_name = graph._func_name
+        new_graph._ctx = ir.Context()
+        new_graph._output_descriptor = None
+        new_graph._output_memref = None
+        new_graph.ee_ = None
+        return new_graph
 
     def perform(self, pattern_list: List[FunctionType]):
         for pattern in pattern_list:

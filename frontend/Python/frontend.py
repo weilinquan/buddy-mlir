@@ -128,8 +128,6 @@ class DynamoCompiler:
                 self._func_name,
             )
             for node in _gm.graph.nodes:
-                print(node.__dict__)
-            for node in _gm.graph.nodes:
                 if node.op == "placeholder":
                     node_dtype = self.torch_dtype_to_str(
                         str(node.meta["tensor_meta"].dtype)
@@ -138,7 +136,7 @@ class DynamoCompiler:
                         str(node.name),
                         node.args,
                         list(node.users.keys()),
-                        node.meta["tensor_meta"].shape,
+                        list(node.meta["tensor_meta"].shape),
                         node_dtype,
                     )
                 elif node.op == "output":
@@ -153,7 +151,7 @@ class DynamoCompiler:
                         node.name,
                         node.args,
                         list(node.users.keys()),
-                        node.meta["tensor_meta"].shape,
+                        list(node.meta["tensor_meta"].shape),
                         node_dtype,
                     )
                 else:
@@ -162,10 +160,10 @@ class DynamoCompiler:
                     num_returns = len(node.target._schema.returns)
                     if num_returns == 1:
                         node_dtype = self.torch_dtype_to_str(str(tensor_meta.dtype))
-                        node_shape = tensor_meta.shape
+                        node_shape = list(tensor_meta.shape)
                     elif num_returns > 1:
                         node_dtype = tuple([self.torch_dtype_to_str(val_item.dtype) for val_item in val])
-                        node_shape = tuple([val_item.shape for val_item in val])
+                        node_shape = tuple([list(val_item.shape) for val_item in val])
                     else:
                         raise RuntimeError("Zero returns is not supported.")
                     buddy_node = torch_ops_map[
@@ -179,7 +177,7 @@ class DynamoCompiler:
                         node_kwargs=node.kwargs
                     )
                 graph.add_node(buddy_node)
-            pattern_list = [fuse_transpose_matmul, expand_same_shape_eliminate]
+            pattern_list = [fuse_transpose_matmul, expand_same_shape_eliminate, apply_kv_cache(Llama7BModelConfig())]
             graph.perform(pattern_list)
             self._imported_graphs.append(graph)
             self._imported_params[graph] = params_flat
