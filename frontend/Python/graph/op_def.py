@@ -876,7 +876,7 @@ class SqueezeOp(Op):
                 input_shape
             ):
                 op_table[self.args[0]].tensor_meta["shape"] = input_shape
-                op_table[self.args[0]].shape_infer(op_table, True)
+                op_table[self.args[0]].shape_infer(op_table, origin_op_table, True)
         else:
             output_shape = (
                 op_table[self.args[0]].tensor_meta["shape"][: self.args[1]]
@@ -888,7 +888,7 @@ class SqueezeOp(Op):
                 return
             self.tensor_meta["shape"] = output_shape
             for child in self._children:
-                op_table[child].shape_infer(op_table)
+                op_table[child].shape_infer(op_table, origin_op_table)
 
 
 class BatchMatmulOp(Op):
@@ -907,7 +907,7 @@ class BatchMatmulOp(Op):
                 op_table[self.args[0]].tensor_meta["shape"][
                     1
                 ] = self.tensor_meta["shape"][1]
-                op_table[self.args[0]].shape_infer(op_table, True)
+                op_table[self.args[0]].shape_infer(op_table, origin_op_table, True)
             if (
                 self.tensor_meta["shape"][2]
                 != op_table[self.args[1]].tensor_meta["shape"][2]
@@ -930,7 +930,7 @@ class BatchMatmulOp(Op):
             if list(self.tensor_meta["shape"]) == origin_shape:
                 return
             for child in self._children:
-                op_table[child].shape_infer(op_table)
+                op_table[child].shape_infer(op_table, origin_op_table)
 
 
 class DivOp(Op):
@@ -948,11 +948,13 @@ class DivOp(Op):
                     self.tensor_meta["shape"]
                 ):
                     input1.tensor_meta["shape"] = self.tensor_meta["shape"]
-                    input1.shape_infer(op_table, True)
+                    input1.shape_infer(op_table, origin_op_table, True)
             else:
+                if list(self.tensor_meta["shape"]) == list(input1.tensor_meta["shape"]):
+                    return
                 self.tensor_meta["shape"] = input1.tensor_meta["shape"]
-            for child in self._children:
-                op_table[child].shape_infer(op_table)
+                for child in self._children:
+                    op_table[child].shape_infer(op_table, origin_op_table)
             return
         input2 = op_table[self.args[1]]
         input1_shape = list(input1.tensor_meta["shape"])
@@ -976,19 +978,66 @@ class DivOp(Op):
                         input2_shape[idx] = i
             if list(input1.tensor_meta["shape"]) != input1_shape[-input1_len:]:
                 input1.tensor_meta["shape"] = input1_shape[-input1_len:]
-                input1.shape_infer(op_table, True)
+                input1.shape_infer(op_table, origin_op_table, True)
             if list(input2.tensor_meta["shape"]) != input2_shape[-input2_len:]:
                 input2.tensor_meta["shape"] = input2_shape[-input2_len:]
-                input2.shape_infer(op_table, True)
+                input2.shape_infer(op_table, origin_op_table, True)
         else:
             out_shape = []
+            origin_input1 = origin_op_table[self.args[0]]
+            origin_input2 = origin_op_table[self.args[1]]
+            fixed_input1 = False
+            fixed_input2 = False
+            if list(origin_input1.tensor_meta["shape"]) != list(input1.tensor_meta["shape"]):
+                fixed_input1 = True
+            if list(origin_input2.tensor_meta["shape"]) != list(input2.tensor_meta["shape"]):
+                fixed_input2 = True
+            input1_seq_idx = 0
+            non_equal_count = 0
+            if fixed_input1:
+                for idx, i in origin_input1.tensor_meta["shape"]:
+                    if i != input1.tensor_meta["shape"][idx]:
+                        input1_seq_idx = idx
+                        non_equal_count += 1
+                assert non_equal_count == 1, 'should only seq dim not equal between origin input and now input'
+            input2_seq_idx = 0
+            non_equal_count = 0
+            if fixed_input2:
+                for idx, i in origin_input2.tensor_meta["shape"]:
+                    if i != input2.tensor_meta["shape"][idx]:
+                        input2_seq_idx = idx
+                        non_equal_count += 1
+                assert non_equal_count == 1, 'should only seq dim not equal between origin input and now input'
+            input1_shape = list(input1.tensor_meta["shape"])
+            input2_shape = list(input2.tensor_meta["shape"])
+            input1_len = len(input1_shape)
+            input2_len = len(input2_shape)
+            out_len = len(self.tensor_meta["shape"])
+            while len(input1_shape) < out_len:
+                input1_shape.insert(0, 1)
+                input1_seq_idx += 1
+            while len(input2_shape) < out_len:
+                input2_shape.insert(0, 1)
+                input2_seq_idx += 1
+            if fixed_input1 and fixed_input2:
+                assert input1_seq_idx == input2_seq_idx, 'seq dim should be equal between input1 and input2'
+            if fixed_input1:
+                input2_shape[input1_seq_idx] = input1_shape[input1_seq_idx]
+                if input2_shape[-len(input2.tensor_meta["shape"]):] != list(input2.tensor_meta["shape"]):
+                    input2.tensor_meta["shape"] = input2_shape[-len(input2.tensor_meta["shape"]):]
+                    input2.shape_infer(op_table, origin_op_table, True)
+            if fixed_input2:
+                input1_shape[input2_seq_idx] = input2_shape[input2_seq_idx]
+                if input1_shape[-len(input1.tensor_meta["shape"]):] != list(input1.tensor_meta["shape"]):
+                    input1.tensor_meta["shape"] = input1_shape[-len(input1.tensor_meta["shape"]):]
+                    input1.shape_infer(op_table, origin_op_table, True)
             for idx, i in enumerate(input2_shape):
                 out_shape.append(max(input1_shape[idx], input2_shape[idx]))
             if list(self.tensor_meta["shape"]) == out_shape:
                 return
             self.tensor_meta["shape"] = out_shape
             for child in self._children:
-                op_table[child].shape_infer(op_table)
+                op_table[child].shape_infer(op_table, origin_op_table, True)
 
 
 class SoftmaxOp(Op):
@@ -1011,13 +1060,13 @@ class CloneOp(Op):
                 self.tensor_meta["shape"]
             ):
                 input1.tensor_meta["shape"] = self.tensor_meta["shape"]
-                input1.shape_infer(op_table, True)
+                input1.shape_infer(op_table, origin_op_table, True)
         else:
             if list(self.tensor_meta["shape"]) == list(input1.tensor_meta["shape"]):
                 return
             self.tensor_meta["shape"] = input1.tensor_meta["shape"]
             for child in self._children:
-                op_table[child].shape_infer(op_table)
+                op_table[child].shape_infer(op_table, origin_op_table)
 
 
 class SiluOp(Op):
@@ -1035,17 +1084,19 @@ class AddOp(Op):
         self, op_table: Dict[str, Op], origin_op_table: Dict[str, Op], fixed_out_shape: bool = False
     ):
         input1 = op_table[self.args[0]]
-        if isinstance(self.args[1], float):
+        if isinstance(self.args[1], float) or isinstance(self.args[1], int):
             if fixed_out_shape:
                 if list(input1.tensor_meta["shape"]) != list(
                     self.tensor_meta["shape"]
                 ):
                     input1.tensor_meta["shape"] = self.tensor_meta["shape"]
-                    input1.shape_infer(op_table, True)
+                    input1.shape_infer(op_table, origin_op_table, True)
             else:
+                if list(self.tensor_meta["shape"]) == list(input1.tensor_meta["shape"]):
+                    return
                 self.tensor_meta["shape"] = input1.tensor_meta["shape"]
-            for child in self._children:
-                op_table[child].shape_infer(op_table)
+                for child in self._children:
+                    op_table[child].shape_infer(op_table, origin_op_table)
             return
         input2 = op_table[self.args[1]]
         input1_shape = list(input1.tensor_meta["shape"])
@@ -1069,19 +1120,66 @@ class AddOp(Op):
                         input2_shape[idx] = i
             if list(input1.tensor_meta["shape"]) != input1_shape[-input1_len:]:
                 input1.tensor_meta["shape"] = input1_shape[-input1_len:]
-                input1.shape_infer(op_table, True)
+                input1.shape_infer(op_table, origin_op_table, True)
             if list(input2.tensor_meta["shape"]) != input2_shape[-input2_len:]:
                 input2.tensor_meta["shape"] = input2_shape[-input2_len:]
-                input2.shape_infer(op_table, True)
+                input2.shape_infer(op_table, origin_op_table, True)
         else:
             out_shape = []
+            origin_input1 = origin_op_table[self.args[0]]
+            origin_input2 = origin_op_table[self.args[1]]
+            fixed_input1 = False
+            fixed_input2 = False
+            if list(origin_input1.tensor_meta["shape"]) != list(input1.tensor_meta["shape"]):
+                fixed_input1 = True
+            if list(origin_input2.tensor_meta["shape"]) != list(input2.tensor_meta["shape"]):
+                fixed_input2 = True
+            input1_seq_idx = 0
+            non_equal_count = 0
+            if fixed_input1:
+                for idx, i in origin_input1.tensor_meta["shape"]:
+                    if i != input1.tensor_meta["shape"][idx]:
+                        input1_seq_idx = idx
+                        non_equal_count += 1
+                assert non_equal_count == 1, 'should only seq dim not equal between origin input and now input'
+            input2_seq_idx = 0
+            non_equal_count = 0
+            if fixed_input2:
+                for idx, i in origin_input2.tensor_meta["shape"]:
+                    if i != input2.tensor_meta["shape"][idx]:
+                        input2_seq_idx = idx
+                        non_equal_count += 1
+                assert non_equal_count == 1, 'should only seq dim not equal between origin input and now input'
+            input1_shape = list(input1.tensor_meta["shape"])
+            input2_shape = list(input2.tensor_meta["shape"])
+            input1_len = len(input1_shape)
+            input2_len = len(input2_shape)
+            out_len = len(self.tensor_meta["shape"])
+            while len(input1_shape) < out_len:
+                input1_shape.insert(0, 1)
+                input1_seq_idx += 1
+            while len(input2_shape) < out_len:
+                input2_shape.insert(0, 1)
+                input2_seq_idx += 1
+            if fixed_input1 and fixed_input2:
+                assert input1_seq_idx == input2_seq_idx, 'seq dim should be equal between input1 and input2'
+            if fixed_input1:
+                input2_shape[input1_seq_idx] = input1_shape[input1_seq_idx]
+                if input2_shape[-len(input2.tensor_meta["shape"]):] != list(input2.tensor_meta["shape"]):
+                    input2.tensor_meta["shape"] = input2_shape[-len(input2.tensor_meta["shape"]):]
+                    input2.shape_infer(op_table, origin_op_table, True)
+            if fixed_input2:
+                input1_shape[input2_seq_idx] = input2_shape[input2_seq_idx]
+                if input1_shape[-len(input1.tensor_meta["shape"]):] != list(input1.tensor_meta["shape"]):
+                    input1.tensor_meta["shape"] = input1_shape[-len(input1.tensor_meta["shape"]):]
+                    input1.shape_infer(op_table, origin_op_table, True)
             for idx, i in enumerate(input2_shape):
                 out_shape.append(max(input1_shape[idx], input2_shape[idx]))
             if list(self.tensor_meta["shape"]) == out_shape:
                 return
             self.tensor_meta["shape"] = out_shape
             for child in self._children:
-                op_table[child].shape_infer(op_table)
+                op_table[child].shape_infer(op_table, origin_op_table, True)
 
 
 class MaxPool2dWithIndicesOp(Op):
@@ -1122,7 +1220,7 @@ class AmaxOp(Op):
                     input1.tensor_meta["shape"][idx] = i
                     need_back_infer = True
             if need_back_infer:
-                input1.shape_infer(op_table, True)
+                input1.shape_infer(op_table, origin_op_table, True)
         else:
             out_shape = []
             if self.args[1][0] < 0:
@@ -1137,7 +1235,7 @@ class AmaxOp(Op):
                 return
             self.tensor_meta["shape"] == out_shape
             for child in self._children:
-                op_table[child].shape_infer(op_table)
+                op_table[child].shape_infer(op_table, origin_op_table)
 
 
 class SubOp(Op):
@@ -1155,11 +1253,13 @@ class SubOp(Op):
                     self.tensor_meta["shape"]
                 ):
                     input2.tensor_meta["shape"] = self.tensor_meta["shape"]
-                    input2.shape_infer(op_table, True)
+                    input2.shape_infer(op_table, origin_op_table, True)
             else:
+                if list(self.tensor_meta["shape"]) == list(input2.tensor_meta["shape"]):
+                    return
                 self.tensor_meta["shape"] = input2.tensor_meta["shape"]
-            for child in self._children:
-                op_table[child].shape_infer(op_table)
+                for child in self._children:
+                    op_table[child].shape_infer(op_table, origin_op_table)
             return
         input1 = op_table[self.args[0]]
         input1_shape = list(input1.tensor_meta["shape"])
@@ -1189,13 +1289,60 @@ class SubOp(Op):
                 input2.shape_infer(op_table, True)
         else:
             out_shape = []
+            origin_input1 = origin_op_table[self.args[0]]
+            origin_input2 = origin_op_table[self.args[1]]
+            fixed_input1 = False
+            fixed_input2 = False
+            if list(origin_input1.tensor_meta["shape"]) != list(input1.tensor_meta["shape"]):
+                fixed_input1 = True
+            if list(origin_input2.tensor_meta["shape"]) != list(input2.tensor_meta["shape"]):
+                fixed_input2 = True
+            input1_seq_idx = 0
+            non_equal_count = 0
+            if fixed_input1:
+                for idx, i in origin_input1.tensor_meta["shape"]:
+                    if i != input1.tensor_meta["shape"][idx]:
+                        input1_seq_idx = idx
+                        non_equal_count += 1
+                assert non_equal_count == 1, 'should only seq dim not equal between origin input and now input'
+            input2_seq_idx = 0
+            non_equal_count = 0
+            if fixed_input2:
+                for idx, i in origin_input2.tensor_meta["shape"]:
+                    if i != input2.tensor_meta["shape"][idx]:
+                        input2_seq_idx = idx
+                        non_equal_count += 1
+                assert non_equal_count == 1, 'should only seq dim not equal between origin input and now input'
+            input1_shape = list(input1.tensor_meta["shape"])
+            input2_shape = list(input2.tensor_meta["shape"])
+            input1_len = len(input1_shape)
+            input2_len = len(input2_shape)
+            out_len = len(self.tensor_meta["shape"])
+            while len(input1_shape) < out_len:
+                input1_shape.insert(0, 1)
+                input1_seq_idx += 1
+            while len(input2_shape) < out_len:
+                input2_shape.insert(0, 1)
+                input2_seq_idx += 1
+            if fixed_input1 and fixed_input2:
+                assert input1_seq_idx == input2_seq_idx, 'seq dim should be equal between input1 and input2'
+            if fixed_input1:
+                input2_shape[input1_seq_idx] = input1_shape[input1_seq_idx]
+                if input2_shape[-len(input2.tensor_meta["shape"]):] != list(input2.tensor_meta["shape"]):
+                    input2.tensor_meta["shape"] = input2_shape[-len(input2.tensor_meta["shape"]):]
+                    input2.shape_infer(op_table, origin_op_table, True)
+            if fixed_input2:
+                input1_shape[input2_seq_idx] = input2_shape[input2_seq_idx]
+                if input1_shape[-len(input1.tensor_meta["shape"]):] != list(input1.tensor_meta["shape"]):
+                    input1.tensor_meta["shape"] = input1_shape[-len(input1.tensor_meta["shape"]):]
+                    input1.shape_infer(op_table, origin_op_table, True)
             for idx, i in enumerate(input2_shape):
                 out_shape.append(max(input1_shape[idx], input2_shape[idx]))
             if list(self.tensor_meta["shape"]) == out_shape:
                 return
             self.tensor_meta["shape"] = out_shape
             for child in self._children:
-                op_table[child].shape_infer(op_table)
+                op_table[child].shape_infer(op_table, origin_op_table, True)
 
 
 class ConvertElementTypeOp(Op):
@@ -1212,13 +1359,13 @@ class ConvertElementTypeOp(Op):
                 self.tensor_meta["shape"]
             ):
                 input1.tensor_meta["shape"] = self.tensor_meta["shape"]
-                input1.shape_infer(op_table, True)
+                input1.shape_infer(op_table, origin_op_table, True)
         else:
             if list(self.tensor_meta["shape"]) == list(input1.tensor_meta["shape"]):
                 return
             self.tensor_meta["shape"] = input1.tensor_meta["shape"]
             for child in self._children:
-                op_table[child].shape_infer(op_table)
+                op_table[child].shape_infer(op_table, origin_op_table)
 
 
 class ExpOp(Op):
@@ -1235,13 +1382,13 @@ class ExpOp(Op):
                 self.tensor_meta["shape"]
             ):
                 input1.tensor_meta["shape"] = self.tensor_meta["shape"]
-                input1.shape_infer(op_table, True)
+                input1.shape_infer(op_table, origin_op_table, True)
         else:
             if list(self.tensor_meta["shape"]) == list(input1.tensor_meta["shape"]):
                 return
             self.tensor_meta["shape"] = input1.tensor_meta["shape"]
             for child in self._children:
-                op_table[child].shape_infer(op_table)
+                op_table[child].shape_infer(op_table, origin_op_table)
 
 
 class ExpandOp(Op):
@@ -1266,13 +1413,22 @@ class ExpandOp(Op):
                     ][idx]
                     need_back_infer = True
             if need_back_infer:
-                input1.shape_infer(op_table, True)
+                input1.shape_infer(op_table, origin_op_table, True)
         else:
+            origin_input_op = origin_op_table[input1]
+            seq_dim = 0
+            non_equal_count = 0
+            for idx, i in origin_input_op.tensor_meta["shape"]:
+                if i != input1.tensor_meta["shape"][idx]:
+                    seq_dim = idx
+                    non_equal_count += 1
+            assert non_equal_count == 1, 'should only seq dim not equal between origin input and now input'
+            self.args[1][seq_dim] = input1.tensor_meta["shape"][seq_dim]
             if list(self.tensor_meta["shape"]) == list(self.args[1]):
                 return
             self.tensor_meta["shape"] = self.args[1]
             for child in self._children:
-                op_table[child].shape_infer(op_table)
+                op_table[child].shape_infer(op_table, origin_op_table)
 
 
 class PermuteOp(Op):
@@ -1290,7 +1446,7 @@ class PermuteOp(Op):
                 input_shape[i] = self.tensor_meta["shape"][idx]
             if list(input_shape) != list(input1.tensor_meta["shape"]):
                 input1.tensor_meta["shape"] = input_shape
-                input1.shape_infer(op_table, True)
+                input1.shape_infer(op_table, origin_op_table, True)
         else:
             out_shape = []
             for idx, i in enumerate(self.args[1]):
@@ -1299,7 +1455,7 @@ class PermuteOp(Op):
                 return
             self.tensor_meta["shape"] = out_shape
             for child in self._children:
-                op_table[child].shape_infer(op_table)
+                op_table[child].shape_infer(op_table, origin_op_table)
 
 
 class ReshapeOp(Op):
@@ -1332,7 +1488,7 @@ class SumDimOp(Op):
                     input1.tensor_meta["shape"][idx] = i
                     need_back_infer = True
             if need_back_infer:
-                input1.shape_infer(op_table, True)
+                input1.shape_infer(op_table, origin_op_table, True)
         else:
             out_shape = []
             if self.args[1][0] < 0:
@@ -1347,7 +1503,7 @@ class SumDimOp(Op):
                 return
             self.tensor_meta["shape"] = out_shape
             for child in self._children:
-                op_table[child].shape_infer(op_table)
+                op_table[child].shape_infer(op_table, origin_op_table)
 
 
 class TanhOp(Op):
@@ -1401,14 +1557,14 @@ class SigmoidOp(Op):
                 self.tensor_meta["shape"]
             ):
                 input1.tensor_meta["shape"] = self.tensor_meta["shape"]
-                input1.shape_infer(op_table, True)
+                input1.shape_infer(op_table, origin_op_table, True)
         else:
             origin_shape = deepcopy(list(self.tensor_meta["shape"]))
             self.tensor_meta["shape"] = input1.tensor_meta["shape"]
             if origin_shape == list(self.tensor_meta["shape"]):
                 return
             for child in self._children:
-                op_table[child].shape_infer(op_table)
+                op_table[child].shape_infer(op_table, origin_op_table)
 
 
 class IotaOp(Op):
@@ -1518,11 +1674,11 @@ class WhereOp(Op):
                 self.tensor_meta["shape"]
             ):
                 input1.tensor_meta["shape"] = self.tensor_meta["shape"]
-                input1.shape_infer(op_table, True)
+                input1.shape_infer(op_table, origin_op_table, True)
         else:
             origin_shape = deepcopy(list(self.tensor_meta["shape"]))
             self.tensor_meta["shape"] = input1.tensor_meta["shape"]
             if origin_shape == list(self.tensor_meta["shape"]):
                 return
             for child in self._children:
-                op_table[child].shape_infer(op_table)
+                op_table[child].shape_infer(op_table, origin_op_table)
