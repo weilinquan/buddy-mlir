@@ -96,34 +96,30 @@ def make_decode_graph(graph: Graph, kv_ops: List[str], current_seq_len):
     for i, op in enumerate(decode_graph._body):
         current_cache_index = 0
         if op.name in kv_ops:
-            origin_ops.append(op.copy_constructor(op))
             concat_shape = deepcopy(op.tensor_meta["shape"])
             concat_shape[0] = current_seq_len
             node_name = "concat_kv_cache" + str(len(decode_graph._body))
+            op._name = node_name
             concat_cache_op = CatOp.fx_create_node(
-                node_name,
+                op.name,
                 [op.name, "cache_"+str(current_cache_index)],
                 deepcopy(op._children),
                 concat_shape,
                 op.tensor_meta["dtype"],
             )
             op.tensor_meta["shape"][0]=1
-            for child in op._children:
-                for p, parent in enumerate(decode_graph._node_table[child]._parent):
-                    if parent == op.name:
-                        decode_graph._node_table[child]._parent[p] = node_name
-                        break
-            op._children = [node_name]
+            op._children = [concat_cache_op.name]
             decode_graph._body.insert(i + 1, concat_cache_op)
-            decode_graph._node_table[node_name] = concat_cache_op
-            return_op.add_argument(node_name)
-            return_op.add_parent(node_name)
+            decode_graph._node_table[concat_cache_op.name] = concat_cache_op
+            decode_graph._node_table[op.name] = op
+            return_op.add_argument(concat_cache_op.name)
+            return_op.add_parent(concat_cache_op.name)
             changed_ops.append(op)
     for op in decode_graph._body:
         print(op.__dict__)
     for i, op in enumerate(changed_ops):
         print(op.__dict__, flush=True)
-        op.shape_infer(decode_graph._node_table, True, origin_ops[i])
+        op.shape_infer(decode_graph._node_table, graph._node_table, True)
     return decode_graph
 
 
