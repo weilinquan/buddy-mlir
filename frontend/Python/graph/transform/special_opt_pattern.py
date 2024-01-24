@@ -93,20 +93,28 @@ def make_decode_graph(graph: Graph, kv_ops: List[str], current_seq_len):
         )
         decode_graph._inputs.append(kv_tensor_meta)
     return_op = decode_graph._node_table["output"]
-    for i, op in enumerate(decode_graph._body):
+    i = 0
+    while i < len(decode_graph._body):
+        op = decode_graph._body[i]
         current_cache_index = 0
         if op.name in kv_ops:
             concat_shape = deepcopy(op.tensor_meta["shape"])
             concat_shape[0] = current_seq_len
             node_name = "concat_kv_cache" + str(len(decode_graph._body))
-            op._name = node_name
             concat_cache_op = CatOp.fx_create_node(
-                op.name,
-                [op.name, "cache_"+str(current_cache_index)],
+                node_name,
+                [[op.name, "cache_"+str(current_cache_index)], 0],
                 deepcopy(op._children),
                 concat_shape,
                 op.tensor_meta["dtype"],
             )
+            for child in op._children:
+                for parent_idx, parent in enumerate(decode_graph._node_table[child]._parent):
+                    if parent == op.name:
+                        decode_graph._node_table[child]._parent[parent_idx] = node_name
+                for arg_idx, arg in enumerate(decode_graph._node_table[child].args):
+                    if arg == op.name:
+                        decode_graph._node_table[child].args[arg_idx] = node_name
             op.tensor_meta["shape"][0]=1
             op._children = [concat_cache_op.name]
             decode_graph._body.insert(i + 1, concat_cache_op)
@@ -115,11 +123,28 @@ def make_decode_graph(graph: Graph, kv_ops: List[str], current_seq_len):
             return_op.add_argument(concat_cache_op.name)
             return_op.add_parent(concat_cache_op.name)
             changed_ops.append(op)
+            i += 2
+        else:
+            i += 1
     for op in decode_graph._body:
         print(op.__dict__)
-    for i, op in enumerate(changed_ops):
-        print(op.__dict__, flush=True)
-        op.shape_infer(decode_graph._node_table, graph._node_table, True)
+    back_infer_ops = changed_ops
+    forward_infer_ops = []
+    while len(back_infer_ops) > 0 or len(forward_infer_ops) > 0:
+        print("111111111111", len(back_infer_ops))
+        print("111111111111", len(forward_infer_ops))
+        i = 0
+        while i < len(back_infer_ops):
+            print("back", back_infer_ops[i].__dict__)
+            back_infer_ops[i].shape_infer(decode_graph._node_table, graph._node_table, True, back_infer_ops, forward_infer_ops)
+            print("over back", back_infer_ops[i].__dict__)
+            del back_infer_ops[i]
+        i = 0
+        while i < len(forward_infer_ops):
+            print("forward", forward_infer_ops[i].__dict__)
+            forward_infer_ops[i].shape_infer(decode_graph._node_table, graph._node_table, False, back_infer_ops, forward_infer_ops)
+            print("over forward", forward_infer_ops[i].__dict__)
+            del forward_infer_ops[i]
     return decode_graph
 
 
@@ -132,8 +157,9 @@ def apply_kv_cache(model_config: ModelConfig):
         model_config.verify_pattern(graph)
 
         kv_ops = kv_pattern_match(model_config, origin_graph)
-
+        print(kv_ops)
         decode_graph = make_decode_graph(graph, kv_ops, 7)
+        print("------------------------------------")
         for op in decode_graph._body:
             print(op.__dict__)
         decode_graph.lower_to_top_level_ir()

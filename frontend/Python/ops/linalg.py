@@ -1913,7 +1913,6 @@ def scalar_tensor_op(node: ScalarTensorOp, symbol_table):
     """
     assert len(node.args) == 1
     dtype = node.tensor_meta["dtype"]
-    mlir_dtype = mlir_element_type_get(dtype)
     attr = mlir_element_attr_get(dtype, node.args[0])
     op = arith.ConstantOp(dtype, attr)
 
