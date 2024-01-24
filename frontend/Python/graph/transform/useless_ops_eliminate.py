@@ -37,7 +37,11 @@ def maxpool2d_simplify(graph: Graph):
                 if isinstance(graph._node_table[user], GetItemOp):
                     getitem_num += 1
                     getitem_node = graph._node_table[user]
-            if getitem_num == 1 and len(node._children) == 1:
+            if (
+                getitem_num == 1
+                and len(node._children) == 1
+                and getitem_node.args[1] == 0
+            ):
                 new_node = MaxPool2dOp.fx_create_node(
                     getitem_node.name,
                     node.args,
@@ -52,5 +56,5 @@ def maxpool2d_simplify(graph: Graph):
                 del graph._body[i]
                 for j, op in enumerate(graph._body):
                     if op == getitem_node:
-                        graph._body[j]=new_node
+                        graph._body[j] = new_node
                         break
