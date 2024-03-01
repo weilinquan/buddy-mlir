@@ -1404,44 +1404,14 @@ def squeeze_op(
             stride_attr,
         )
     else:
-        output_map = ir.AffineMap.get(
-            len(output_shape),
-            0,
-            [ir.AffineExpr.get_dim(i) for i in range(len(output_shape))],
+        shape_type = ir.RankedTensorType.get([len(output_shape)], ir.IntegerType.get_signless(64))
+        attr = ir.DenseElementsAttr.get(
+            numpy.array(output_shape),
+            signless=True,
+            type=shape_type,
         )
-        input1_map = []
-        loop_index = 0
-        for i in range(len(input1_shape)):
-            if len(input1_map) == dim:
-                input1_map.append(ir.AffineExpr.get_constant(0))
-            else:
-                input1_map.append(ir.AffineExpr.get_dim(loop_index))
-                loop_index += 1
-        input1_map = ir.AffineMap.get(len(output_shape), 0, input1_map)
-        op = linalg.GenericOp(
-            [tensor_type],
-            [input1],
-            [output],
-            ir.ArrayAttr.get(
-                [
-                    ir.AffineMapAttr.get(input1_map),
-                    ir.AffineMapAttr.get(output_map),
-                ]
-            ),
-            ir.ArrayAttr.get(
-                [ir.Attribute.parse("#linalg.iterator_type<parallel>")]
-                * len(output_shape)
-            ),
-        )
-        block = ir.Block.create_at_start(
-            op.region,
-            [
-                ir.RankedTensorType(input1.type).element_type,
-                ir.RankedTensorType(output.result.type).element_type,
-            ],
-        )
-        block.append(linalg.YieldOp([block.arguments[0]]))
-
+        shape_op = arith.ConstantOp(shape_type, attr)
+        op = tensor.reshape(tensor_type, input1, shape_op)
     return op
 
 
