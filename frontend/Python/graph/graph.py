@@ -170,7 +170,7 @@ class Graph:
         - None
         """
         for i, op in enumerate(self._body):
-            if isinstance(op, PlaceholderOp):
+            if isinstance(op, PlaceholderOp) or isinstance(op, OutputOp):
                 continue
             group = [op]
             subgraph_name = "subgraph{}".format(i)
